@@ -1,0 +1,38 @@
+{
+  "name": "flip/checkout",
+  "description": "Flip for Business Magento 2 Payment Module",
+  "type": "magento2-module",
+  "version": "1.0.0",
+  "authors" : [
+    {
+      "name": "Zaki Ibrahim",
+      "email": "zaki.ibrahim@flip.com",
+      "homepage": "https://flip.id/",
+      "role": "Developer"
+    },
+    {
+      "name": "Khoirunnisya Zawawi",
+      "email": "khoirunnisya.Khoirunnisya@flip.id",
+      "homepage": "https://flip.id/",
+      "role": "Developer"
+    }
+  ],
+  "license": ["MIT"],
+  "require": {
+    "php" : "^8.0"
+  },
+  "autoload": {
+    "files": ["registration.php"],
+    "psr-4": {
+      "Flip\\Checkout\\": ""
+    }
+  },
+  "keywords": [
+    "magento2",
+    "magento 2",
+    "flip",
+    "flip for business",
+    "flip chekout",
+    "flip magento2"
+  ]
+}
