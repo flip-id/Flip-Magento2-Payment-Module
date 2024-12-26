@@ -1,0 +1,33 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/config.xsd">
+    <default>
+        <payment>
+            <flip>
+                <settings>
+                    <is_redirect>1</is_redirect>
+                    <live_validation_key backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
+                    <live_api_secret_key backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
+                    <test_validation_key backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
+                    <test_api_secret_key backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
+                    <log>
+                        <callback>1</callback>
+                        <request>1</request>
+                        <debug>0</debug>
+                        <exception>0</exception>
+                    </log>
+                </settings>
+            </flip>
+            <flip_checkout_seamless>
+                <active>1</active>
+                <title>Online Payment with Flip</title>
+                <model>Flip\Checkout\Model\Payment\Code\CheckoutSeamless</model>
+                <order_status>pending</order_status>
+                <is_gateway>1</is_gateway>
+                <can_use_checkout>1</can_use_checkout>
+                <can_authorize>1</can_authorize>
+                <can_capture>0</can_capture>
+                <can_refund>0</can_refund>
+            </flip_checkout_seamless>
+        </payment>
+    </default>
+</config>

@@ -1,0 +1,16 @@
+<?xml version="1.0"?>
+<config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_file.xsd">
+    <system>
+        <section id="payment">
+            <group id="flip" translate="label" type="text" sortOrder="100" showInDefault="1"  showInWebsite="1" showInStore="1">
+                <label><![CDATA[Flip for Business (by <a href="https://flip.id/business" target="_blank" rel="noopener noreferrer">Flip.Id</a>)]]></label>
+                <fieldset_css>complex flip-admin-config-section</fieldset_css>
+                <comment>Seamless payment solutions, tailored to your business needs. Easily accept payments from your customers via 20+ payment methods with flexible integration options.</comment>
+                <frontend_model>Flip\Checkout\Block\Adminhtml\Config\Fieldset</frontend_model>
+                <attribute type="displayIn">recommended_solutions</attribute>
+                <include path="Flip_Checkout::system/settings.xml"/>
+                <include path="Flip_Checkout::system/checkout_seamless.xml"/>
+            </group>
+        </section>
+    </system>
+</config>

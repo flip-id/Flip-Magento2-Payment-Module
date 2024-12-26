@@ -1,0 +1,102 @@
+<?xml version="1.0"?>
+<include xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:module:Magento_Config:etc/system_include.xsd">
+    <group id="settings" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="1">
+        <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
+        <comment><![CDATA[
+        <h1 class="intro-title">Flip Payment Extension for Magento</h1>
+        <p class="intro-description">
+            Welcome to the Flip Payment Extension for Magento! This extension integrates your Magento store with Flip for Business, providing a seamless and secure payment experience for your customers. By using Flip, you can offer various payment methods, ensuring flexibility and convenience at checkout.
+        </p>
+        <h2 class="feature-heading">Getting Started with Flip Payment Extension:</h2>
+        <ul class="feature-list">
+            <li><strong>Register for an API Key:</strong> To connect your Magento store with Flip, you’ll need an API key. If you haven’t already, please <a href="https://business.flip.id/signup" target="_blank" rel="noopener noreferrer">register here</a> to create an account and generate your API key..</li>
+            <li><strong>Documentation:</strong> For detailed instructions on configuring and using the Flip Payment Extension, visit our documentation page. This guide covers everything from installation to advanced configuration options.</li>
+            <li><strong>Need Help?:</strong> If you encounter any issues or need further assistance, please contact our support team at support@flip.com. We’re here to help ensure a smooth integration experience..</li>
+            <li><strong>Provide Feedback:</strong> Your feedback is invaluable in helping us improve the Flip Payment Extension. If you have suggestions, comments, or run into any issues, please reach out via email or fill out our <a href="https://beta-docs.flip.id/feedback/" target="_blank" rel="noopener noreferrer">feedback form</a>.</li>
+        </ul>
+        ]]></comment>
+        <label><![CDATA[Configuration]]></label>
+        <attribute type="expanded">1</attribute>
+        <field id="is_live_mode" translate="label" type="select" sortOrder="10" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>is LiveMode?</label>
+            <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+        </field>
+        <field id="flip_business_id" translate="label" type="text" sortOrder="20" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Flip Business ID</label>
+            <validate>required-entry</validate>
+            <frontend_class>required-entry</frontend_class>
+            <comment><![CDATA[You can find this value under your user Flip Dashboard profile name ]]></comment>
+        </field>
+        <field id="live_api_secret_key" translate="label" type="obscure" sortOrder="30" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>LiveMode - API Secret Key</label>
+            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+            <validate>no-whitespace</validate>
+            <depends>
+                <field id="is_live_mode">1</field>
+            </depends>
+        </field>
+        <field id="live_validation_key" translate="label" type="obscure" sortOrder="40" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>LiveMode - Validation Key</label>
+            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+            <validate>no-whitespace</validate>
+            <depends>
+                <field id="is_live_mode">1</field>
+            </depends>
+        </field>
+        <field id="test_api_secret_key" translate="label" type="obscure" sortOrder="50" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>TestMode - API Secret Key</label>
+            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+            <validate>no-whitespace</validate>
+            <depends>
+                <field id="is_live_mode">0</field>
+            </depends>
+        </field>
+        <field id="test_validation_key" translate="label" type="obscure" sortOrder="60" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>TestMode - Validation Key</label>
+            <backend_model>Magento\Config\Model\Config\Backend\Encrypted</backend_model>
+            <validate>no-whitespace</validate>
+            <depends>
+                <field id="is_live_mode">0</field>
+            </depends>
+        </field>
+        <field id="is_redirect" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
+            <label>Flip Checkout Mode</label>
+            <source_model>Flip\Checkout\Model\Config\Source\CheckoutModeOptions</source_model>
+        </field>
+        <group id="notification" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label><![CDATA[Webhook Callback Notification URL]]></label>
+            <attribute type="expanded">1</attribute>
+            <comment><![CDATA[The Webhook Notification URL allows Flip to send real-time updates to your Magento store regarding the status of transactions processed through the payment extension. This ensures that your store reflects accurate transaction statuses for completed, pending, or failed payments.]]></comment>
+            <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
+            <field id="endpoint" translate="label" type="label" sortOrder="81" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>URL</label>
+                <frontend_model>Flip\Checkout\Block\Adminhtml\Config\CallbackUrl</frontend_model>
+                <comment><![CDATA[Copy this endpoint URL and input as <b>Accept Payment Notification URL</b> value in the <a target="_blank" href="https://business.flip.id/developer/credentials">Flip Dashboard - Developer Menu</a>.]]></comment>
+            </field>
+        </group>
+        <group id="log" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
+            <label><![CDATA[Log Option]]></label>
+            <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
+            <field id="callback" translate="label" type="select" sortOrder="100" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Enable Callback Notification Log</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <tooltip>If enabled, you can view every Flip notification received in the log file located at /var/log/flip_callback.log.</tooltip>
+            </field>
+            <field id="request" translate="label" type="select" sortOrder="110" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Enable Request Log</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <tooltip>If enabled, you can view every API Request that send to Flip in the log file located at /var/log/flip_api_request.log.</tooltip>
+            </field>
+            <field id="debug" translate="label" type="select" sortOrder="120" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Enable Debug Log</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <tooltip>If enabled, you can view every log information for this module file located at /var/log/flip_debug.log.</tooltip>
+            </field>
+            <field id="exception" translate="label" type="select" sortOrder="130" showInDefault="1" showInWebsite="1" showInStore="0">
+                <label>Enable Error and Exception</label>
+                <source_model>Magento\Config\Model\Config\Source\Yesno</source_model>
+                <tooltip>If enabled, you can view every error exception for this module Request that send to Flip in the log file located at /var/log/flip_error.log.</tooltip>
+            </field>
+        </group>
+    </group>
+</include>
