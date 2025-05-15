@@ -109,7 +109,7 @@ class FlipLogger extends Logger
      * @param string $message The base error message to log.
      * @param \Throwable|null $exception Optional exception to include in the log.
      */
-    public function logErrorException(string $message, \Throwable $exception = null): void
+    public function logErrorException(string $message, ?\Throwable $exception = null): void
     {
         $errorMessage = $exception !== null ? sprintf(
             "Exception: %s\nCode: %d\nFile: %s\nLine: %d\nStack Trace:\n%s",

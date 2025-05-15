@@ -64,9 +64,9 @@ class AbstractPayment extends Adapter
         string $code,
         string $formBlockType,
         string $infoBlockType,
-        CommandPoolInterface $commandPool = null,
-        ValidatorPoolInterface $validatorPool = null,
-        CommandManagerInterface $commandExecutor = null,
+        ?CommandPoolInterface $commandPool = null,
+        ?ValidatorPoolInterface $validatorPool = null,
+        ?CommandManagerInterface $commandExecutor = null,
     ) {
         parent::__construct(
             $eventManager,
@@ -92,7 +92,7 @@ class AbstractPayment extends Adapter
      * @param CartInterface|null $quote The current cart/quote object.
      * @return bool True if the payment method is available, false otherwise.
      */
-    public function isAvailable(CartInterface $quote = null): bool
+    public function isAvailable(?CartInterface $quote = null): bool
     {
         return $this->getConfigData('active') && parent::isAvailable($quote);
     }
