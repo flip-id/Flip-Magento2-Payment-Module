@@ -1,0 +1,50 @@
+<?xml version="1.0"?>
+<extension>
+    <name>Flip Checkout Payment Module</name>
+    <type>payment</type>
+    <version>1.0.0</version>
+    <summary>Flip for Business Magento 2 Payment Module - Seamless integration of Flip's payment services into your Magento store.</summary>
+    <description><![CDATA[
+        <h2>Flip for Business Magento 2 Payment Module</h2>
+        <p>This module enables seamless integration of Flip's payment services into your Magento store.</p>
+        
+        <h3>Features:</h3>
+        <ul>
+            <li>Accept payments via Flip in Magento 2</li>
+            <li>Automatic payment status updates</li>
+            <li>Secure and reliable payment processing</li>
+            <li>Support for multiple payment methods</li>
+            <li>Real-time payment status updates</li>
+            <li>Comprehensive logging system</li>
+        </ul>
+
+        <h3>Requirements:</h3>
+        <ul>
+            <li>Magento 2.4.x</li>
+            <li>PHP 8.0 or higher</li>
+            <li>Flip Business Account</li>
+        </ul>
+
+        <h3>Installation:</h3>
+        <p>Please refer to the README.md file for detailed installation instructions.</p>
+
+        <h3>Support:</h3>
+        <p>For support, please contact us at support@flip.id or visit our GitHub repository.</p>
+    ]]></description>
+    <license>MIT</license>
+    <license_url>https://opensource.org/licenses/MIT</license_url>
+    <price>0.00</price>
+    <category>Payment</category>
+    <compatibility>
+        <magento_version>2.4.0</magento_version>
+        <magento_edition>Community</magento_edition>
+        <php_version>8.0</php_version>
+    </compatibility>
+    <keywords>
+        <keyword>flip</keyword>
+        <keyword>payment</keyword>
+        <keyword>checkout</keyword>
+        <keyword>gateway</keyword>
+        <keyword>magento2</keyword>
+    </keywords>
+</extension> 
