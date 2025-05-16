@@ -19,7 +19,16 @@
   ],
   "license": ["MIT"],
   "require": {
-    "php" : "^8.0"
+    "php": "^8.0",
+    "magento/framework": ">=102.0.0",
+    "magento/module-payment": ">=100.0.0",
+    "magento/module-checkout": ">=100.0.0",
+    "magento/module-sales": ">=100.0.0"
+  },
+  "require-dev": {
+    "phpunit/phpunit": "^9.0",
+    "magento/magento-coding-standard": "^33.0",
+    "magento/marketplace-eqp": "^1.0"
   },
   "autoload": {
     "files": ["registration.php"],
@@ -32,7 +41,16 @@
     "magento 2",
     "flip",
     "flip for business",
-    "flip chekout",
-    "flip magento2"
-  ]
+    "flip checkout",
+    "flip magento2",
+    "payment",
+    "payment gateway"
+  ],
+  "support": {
+    "email": "support@flip.id",
+    "issues": "https://github.com/flip-id/Flip-Magento2-Payment-Module/issues",
+    "source": "https://github.com/flip-id/Flip-Magento2-Payment-Module"
+  },
+  "minimum-stability": "stable",
+  "prefer-stable": true
 }
