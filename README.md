@@ -25,11 +25,11 @@ This is the **Flip Payment Module for Magento 2**, enabling seamless integration
 1. Download the module from [GitHub Releases](https://github.com/flip-id/Flip-Magento2-Payment-Module/releases).
 2. Extract and copy the files into:
    ```
-   app/code/Flip/Payment/
+   app/code/Flip/Checkout/
    ```
 3. Run the following Magento CLI commands:
    ```sh
-   bin/magento module:enable Flip_Payment
+   bin/magento module:enable Flip_Checkout
    bin/magento setup:upgrade
    bin/magento cache:flush
    ```
