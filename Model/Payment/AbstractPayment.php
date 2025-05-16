@@ -14,47 +14,49 @@ use Magento\Quote\Api\Data\CartInterface;
 
 /**
  * Class AbstractPayment
+ * 
  * Provides a base payment method implementation for Flip payment methods.
- *
- * This class extends the `Adapter` class from Magento's payment gateway module
- * and provides basic functionality for Flip's payment integration, including
- * logging, checking availability, and handling configuration settings.
+ * This class extends the Magento Payment Adapter and implements core payment functionality.
  *
  * @package Flip\Checkout\Model\Payment
+ * @api
  */
 class AbstractPayment extends Adapter
 {
     /**
-     * @var string The payment method code.
+     * Payment method code
+     *
+     * @var string
      */
     public string $code;
 
     /**
-     * @var bool Flag indicating whether the gateway is enabled.
+     * Flag indicating whether the gateway is enabled
+     *
+     * @var bool
      */
     protected bool $isGateway = true;
 
     /**
-     * @var FlipLogger Logger for logging payment-related events.
+     * Logger instance for payment-related events
+     *
+     * @var FlipLogger
      */
     private FlipLogger $logger;
 
     /**
      * AbstractPayment constructor.
      *
-     * Initializes the payment method with the necessary dependencies, including
-     * the event manager, value handler pool, payment data object factory, and others.
-     *
-     * @param ManagerInterface $eventManager Event manager for handling Magento events.
-     * @param ValueHandlerPoolInterface $valueHandlerPool Pool of value handlers for payment gateway configuration.
-     * @param PaymentDataObjectFactory $paymentDataObjectFactory Factory for creating payment data objects.
-     * @param FlipLogger $logger Logger instance for logging events and errors.
-     * @param string $code Payment method code.
-     * @param string $formBlockType Block type for the payment method form.
-     * @param string $infoBlockType Block type for the payment method info.
-     * @param CommandPoolInterface|null $commandPool Command pool for gateway commands (optional).
-     * @param ValidatorPoolInterface|null $validatorPool Validator pool for gateway command validation (optional).
-     * @param CommandManagerInterface|null $commandExecutor Command executor for running commands (optional).
+     * @param ManagerInterface $eventManager Event manager for handling Magento events
+     * @param ValueHandlerPoolInterface $valueHandlerPool Pool of value handlers for payment gateway configuration
+     * @param PaymentDataObjectFactory $paymentDataObjectFactory Factory for creating payment data objects
+     * @param FlipLogger $logger Logger instance for logging events and errors
+     * @param string $code Payment method code
+     * @param string $formBlockType Block type for the payment method form
+     * @param string $infoBlockType Block type for the payment method info
+     * @param CommandPoolInterface|null $commandPool Command pool for gateway commands
+     * @param ValidatorPoolInterface|null $validatorPool Validator pool for gateway command validation
+     * @param CommandManagerInterface|null $commandExecutor Command executor for running commands
      */
     public function __construct(
         ManagerInterface $eventManager,
@@ -66,7 +68,7 @@ class AbstractPayment extends Adapter
         string $infoBlockType,
         ?CommandPoolInterface $commandPool = null,
         ?ValidatorPoolInterface $validatorPool = null,
-        ?CommandManagerInterface $commandExecutor = null,
+        ?CommandManagerInterface $commandExecutor = null
     ) {
         parent::__construct(
             $eventManager,
@@ -77,7 +79,7 @@ class AbstractPayment extends Adapter
             $infoBlockType,
             $commandPool,
             $validatorPool,
-            $commandExecutor,
+            $commandExecutor
         );
         $this->logger = $logger;
     }
@@ -86,14 +88,34 @@ class AbstractPayment extends Adapter
      * Checks if the payment method is available.
      *
      * This method checks if the payment method is active in the configuration and
-     * if it is available for the given cart (quote). It overrides the `isAvailable`
-     * method to add custom availability checks for Flip's payment gateway.
+     * if it is available for the given cart (quote).
      *
-     * @param CartInterface|null $quote The current cart/quote object.
-     * @return bool True if the payment method is available, false otherwise.
+     * @param CartInterface|null $quote The current cart/quote object
+     * @return bool True if the payment method is available, false otherwise
      */
     public function isAvailable(?CartInterface $quote = null): bool
     {
         return $this->getConfigData('active') && parent::isAvailable($quote);
+    }
+
+    /**
+     * Get payment method code
+     *
+     * @return string
+     */
+    public function getCode(): string
+    {
+        return $this->code;
+    }
+
+    /**
+     * Check whether payment method can be used
+     *
+     * @param CartInterface|null $quote
+     * @return bool
+     */
+    public function canUseCheckout(?CartInterface $quote = null): bool
+    {
+        return $this->isAvailable($quote);
     }
 }

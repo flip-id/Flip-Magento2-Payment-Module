@@ -7,25 +7,28 @@ use Magento\Framework\App\CsrfAwareActionInterface;
 use Magento\Framework\App\Request\InvalidRequestException;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Model\Order;
 
 /**
- * Callback class to handle Flip payment callback notifications.
- *
+ * Class Callback
+ * 
+ * Handles Flip payment callback notifications.
  * This class processes incoming callback requests from the Flip for Business API.
  * It validates the request, decodes the callback data, and updates the associated order
  * based on the payment status.
  *
  * @package Flip\Checkout\Controller\Payment
+ * @api
  */
 class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAwareActionInterface
 {
     /**
-     * Create a CSRF validation exception.
+     * Create a CSRF validation exception
      *
-     * @param RequestInterface $request The incoming request.
-     * @return InvalidRequestException|null
+     * @param RequestInterface $request The incoming request
+     * @return InvalidRequestException|null The exception if validation failed, null otherwise
      */
     public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
     {
@@ -33,10 +36,10 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
     }
 
     /**
-     * Validate the request for CSRF.
+     * Validate the request for CSRF
      *
-     * @param RequestInterface $request The incoming request.
-     * @return bool|null
+     * @param RequestInterface $request The incoming request
+     * @return bool|null True if validation passed, false if failed, null for default validation
      */
     public function validateForCsrf(RequestInterface $request): ?bool
     {
@@ -44,9 +47,10 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
     }
 
     /**
-     * Execute the callback action.
+     * Execute the callback action
      *
-     * @return ResultInterface JSON response containing the status of the callback processing.
+     * @return ResultInterface|Json JSON response containing the status of the callback processing
+     * @throws LocalizedException If the request is invalid or processing fails
      */
     public function execute(): ResultInterface
     {
@@ -60,12 +64,12 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
                 "======================================================================================================="
             );
 
-            // Validate request method.
+            // Validate request method
             if (!$this->getRequest()->isPost()) {
                 throw new LocalizedException(__('Invalid request method'));
             }
 
-            // Validate token.
+            // Validate token
             $token = $this->getRequest()->getPost('token');
             if (!$this->validateToken($token)) {
                 throw new LocalizedException(__('Invalid token'));
@@ -123,10 +127,10 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
     }
 
     /**
-     * Validate the callback token.
+     * Validate the callback token
      *
-     * @param string|null $token The token provided in the callback request.
-     * @return bool True if the token is valid, otherwise false.
+     * @param string|null $token The token provided in the callback request
+     * @return bool True if the token is valid, otherwise false
      */
     private function validateToken(?string $token): bool
     {
@@ -134,10 +138,10 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
     }
 
     /**
-     * Retrieve and decode callback data.
+     * Retrieve and decode callback data
      *
-     * @return array Decoded callback data.
-     * @throws LocalizedException If the callback data is invalid or empty.
+     * @return array<string, mixed> Decoded callback data
+     * @throws LocalizedException If the callback data is invalid or empty
      */
     private function getCallbackData(): array
     {
@@ -154,10 +158,10 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
     }
 
     /**
-     * Validate the callback data for required fields.
+     * Validate the callback data for required fields
      *
-     * @param array $data The callback data to validate.
-     * @throws LocalizedException If any required fields are missing.
+     * @param array<string, mixed> $data The callback data to validate
+     * @throws LocalizedException If any required fields are missing
      */
     private function validateCallbackData(array $data): void
     {
@@ -170,10 +174,10 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
     }
 
     /**
-     * Process the payment and update the order.
+     * Process the payment and update the order
      *
-     * @param array $data The callback data.
-     * @throws LocalizedException If the payment processing fails.
+     * @param array<string, mixed> $data The callback data
+     * @throws LocalizedException If the payment processing fails
      */
     private function processPayment(array $data): void
     {

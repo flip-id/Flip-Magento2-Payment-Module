@@ -7,23 +7,27 @@ use Magento\Framework\App\CsrfAwareActionInterface;
 use Magento\Framework\App\Request\InvalidRequestException;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Controller\Result\Redirect;
+use Magento\Framework\View\Result\Page;
 use Magento\Framework\Exception\NotFoundException;
+use Magento\Sales\Model\Order;
 
 /**
- * Finish Controller
- *
+ * Class Finish
+ * 
  * Handles the finish step of the Flip Checkout payment process.
  * Displays a confirmation page with order details after the payment is processed successfully.
  *
  * @package Flip\Checkout\Controller\Payment
+ * @api
  */
 class Finish extends AbstractAction implements HttpGetActionInterface, CsrfAwareActionInterface
 {
     /**
-     * Create an exception for CSRF validation failure.
+     * Create an exception for CSRF validation failure
      *
-     * @param RequestInterface $request The incoming request.
-     * @return InvalidRequestException|null Null as CSRF validation is bypassed.
+     * @param RequestInterface $request The incoming request
+     * @return InvalidRequestException|null Null as CSRF validation is bypassed
      */
     public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
     {
@@ -31,10 +35,10 @@ class Finish extends AbstractAction implements HttpGetActionInterface, CsrfAware
     }
 
     /**
-     * Validate the request for CSRF.
+     * Validate the request for CSRF
      *
-     * @param RequestInterface $request The incoming request.
-     * @return bool|null Always returns true to skip CSRF validation.
+     * @param RequestInterface $request The incoming request
+     * @return bool|null Always returns true to skip CSRF validation
      */
     public function validateForCsrf(RequestInterface $request): ?bool
     {
@@ -42,10 +46,10 @@ class Finish extends AbstractAction implements HttpGetActionInterface, CsrfAware
     }
 
     /**
-     * Execute the controller action to display the payment confirmation page.
+     * Execute the controller action to display the payment confirmation page
      *
-     * @return ResultInterface Result page or redirect response.
-     * @throws NotFoundException If the requested page or data is not found.
+     * @return ResultInterface|Page|Redirect Result page or redirect response
+     * @throws NotFoundException If the requested page or data is not found
      */
     public function execute(): ResultInterface
     {

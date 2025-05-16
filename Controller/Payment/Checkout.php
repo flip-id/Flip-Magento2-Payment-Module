@@ -7,25 +7,29 @@ use Magento\Framework\App\CsrfAwareActionInterface;
 use Magento\Framework\App\Request\InvalidRequestException;
 use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultInterface;
+use Magento\Framework\Controller\Result\Json;
+use Magento\Sales\Model\Order;
 
 /**
  * Class Checkout
+ * 
  * Handles the creation of a payment link using the Flip API during the checkout process.
+ * This controller is responsible for initiating the payment process and creating payment links.
  *
  * @package Flip\Checkout\Controller\Payment
+ * @api
  */
 class Checkout extends AbstractAction implements HttpPostActionInterface, CsrfAwareActionInterface
 {
     /**
-     * Executes the main logic for creating a payment link.
+     * Executes the main logic for creating a payment link
      *
      * This method retrieves the last real order from the checkout session, generates a payload for the Flip API,
      * creates a payment link, and updates the order with the necessary information. If an error occurs,
      * it logs the error and returns a JSON response indicating failure.
      *
-     * @return ResultInterface JSON response with payment link information or error details.
-     *
-     * @throws \Exception If an error occurs during API interaction or order processing.
+     * @return ResultInterface|Json JSON response with payment link information or error details
+     * @throws \Exception If an error occurs during API interaction or order processing
      */
     public function execute(): ResultInterface
     {
@@ -52,7 +56,7 @@ class Checkout extends AbstractAction implements HttpPostActionInterface, CsrfAw
             );
 
             // Update payment information and save the order
-            $this->orderRepository->setAdditionalPaymentInfo($order, key: 'payment_url', value: $response['payment_url'] );
+            $this->orderRepository->setAdditionalPaymentInfo($order, key: 'payment_url', value: $response['payment_url']);
             $this->orderRepository->saveOrder($order);
 
             // Return success response
@@ -69,12 +73,11 @@ class Checkout extends AbstractAction implements HttpPostActionInterface, CsrfAw
     }
 
     /**
-     * Create exception in case CSRF validation failed.
-     * Return null if default exception will suffice.
+     * Create exception in case CSRF validation failed
+     * Return null if default exception will suffice
      *
-     * @param RequestInterface $request
-     *
-     * @return InvalidRequestException|null
+     * @param RequestInterface $request The request object
+     * @return InvalidRequestException|null The exception if validation failed, null otherwise
      */
     public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
     {
@@ -82,12 +85,11 @@ class Checkout extends AbstractAction implements HttpPostActionInterface, CsrfAw
     }
 
     /**
-     * Perform custom request validation.
-     * Return null if default validation is needed.
+     * Perform custom request validation
+     * Return null if default validation is needed
      *
-     * @param RequestInterface $request
-     *
-     * @return bool|null
+     * @param RequestInterface $request The request object
+     * @return bool|null True if validation passed, false if failed, null for default validation
      */
     public function validateForCsrf(RequestInterface $request): ?bool
     {

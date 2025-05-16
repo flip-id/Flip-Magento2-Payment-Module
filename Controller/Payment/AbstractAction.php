@@ -21,111 +21,144 @@ use Magento\Framework\View\Result\PageFactory;
 use Magento\Framework\App\Request\Http;
 
 /**
- * AbstractAction class for handling payment-related actions that implement ActionApp Magento in the Flip Checkout module.
- *
+ * AbstractAction class for handling payment-related actions
+ * 
  * This abstract class serves as the base for payment-related controllers in the Flip Checkout module.
  * It provides common dependencies, initialization, and utility methods to simplify specific actions.
  *
  * @package Flip\Checkout\Controller\Payment
+ * @api
  */
 abstract class AbstractAction implements ActionApp
 {
     /**
-     * @var FlipLogger Logger instance for logging actions, requests, and errors.
+     * Logger instance for logging actions, requests, and errors
+     *
+     * @var FlipLogger
      */
     public FlipLogger $logger;
 
     /**
-     * @var FlipService Service class for handling payment creation and Flip API communication.
+     * Service class for handling payment creation and Flip API communication
+     *
+     * @var FlipService
      */
     public FlipService $flipService;
 
     /**
-     * @var OrderRepository Repository class for managing order data.
+     * Repository class for managing order data
+     *
+     * @var OrderRepository
      */
     public OrderRepository $orderRepository;
 
     /**
-     * @var InvoiceRepository Repository for managing Magento invoices.
+     * Repository for managing Magento invoices
+     *
+     * @var InvoiceRepository
      */
     public InvoiceRepository $invoiceRepository;
 
     /**
-     * @var CreditMemoRepository Repository for managing credit memo data.
+     * Repository for managing credit memo data
+     *
+     * @var CreditMemoRepository
      */
     public CreditMemoRepository $creditMemoRepository;
 
     /**
-     * @var Session Checkout session for managing cart and order session data.
+     * Checkout session for managing cart and order session data
+     *
+     * @var Session
      */
     protected Session $_checkoutSession;
 
     /**
-     * @var Context Action context for accessing controller parameters and settings.
+     * Action context for accessing controller parameters and settings
+     *
+     * @var Context
      */
     private Context $_context;
 
     /**
-     * @var JsonFactory Factory for creating JSON response results.
+     * Factory for creating JSON response results
+     *
+     * @var JsonFactory
      */
     public JsonFactory $_resultJsonFactory;
 
     /**
-     * @var Json Serializer for encoding and decoding JSON data.
+     * Serializer for encoding and decoding JSON data
+     *
+     * @var Json
      */
     public Json $jsonSerializer;
 
     /**
-     * @var ResultFactory Factory for generating various result types.
+     * Factory for generating various result types
+     *
+     * @var ResultFactory
      */
     protected ResultFactory $_resultFactory;
 
     /**
-     * @var ModuleConfig Configuration class to retrieve module-specific settings.
+     * Configuration class to retrieve module-specific settings
+     *
+     * @var ModuleConfig
      */
     public ModuleConfig $flipModuleConfig;
 
     /**
-     * @var RequestFactory Factory for creating payment request payloads.
+     * Factory for creating payment request payloads
+     *
+     * @var RequestFactory
      */
     protected RequestFactory $requestFactory;
 
     /**
-     * @var RequestInterface Interface for managing HTTP requests.
+     * Interface for managing HTTP requests
+     *
+     * @var RequestInterface
      */
     public RequestInterface $requestInterface;
 
     /**
-     * @var RedirectFactory Factory for generating redirect results.
+     * Factory for generating redirect results
+     *
+     * @var RedirectFactory
      */
     public RedirectFactory $redirectFactory;
 
     /**
-     * @var PageFactory Factory for creating page results.
+     * Factory for creating page results
+     *
+     * @var PageFactory
      */
     public PageFactory $pageFactory;
 
     /**
-     * @var Http HTTP request object for handling incoming requests.
+     * HTTP request object for handling incoming requests
+     *
+     * @var Http
      */
     protected Http $request;
 
     /**
-     * Constructor for AbstractAction class.
+     * Constructor for AbstractAction class
      *
-     * @param Context $context The context for the action, containing request and response objects.
-     * @param Session $checkoutSession Session object for managing the checkout process.
-     * @param JsonFactory $resultJsonFactory Factory for generating JSON responses.
-     * @param FlipService $flipService Service for interacting with Flip API.
-     * @param FlipLogger $logger Logger instance for recording events and errors.
-     * @param ModuleConfig $flipModuleConfig Config class for Flip Checkout module settings.
-     * @param OrderRepository $orderRepository Repository for managing orders.
-     * @param InvoiceRepository $invoiceRepository Repository for managing invoices.
-     * @param CreditMemoRepository $creditMemoRepository Repository for managing credit memos.
-     * @param RequestFactory $requestFactory Factory for generating payment requests.
-     * @param PageFactory $pageFactory Factory for creating view pages.
-     * @param Http $request HTTP request object for retrieving request data.
-     * @param Json $jsonSerializer JSON serializer for encoding and decoding data.
+     * @param Context $context The context for the action, containing request and response objects
+     * @param Session $checkoutSession Session object for managing the checkout process
+     * @param JsonFactory $resultJsonFactory Factory for generating JSON responses
+     * @param FlipService $flipService Service for interacting with Flip API
+     * @param FlipLogger $logger Logger instance for recording events and errors
+     * @param ModuleConfig $flipModuleConfig Config class for Flip Checkout module settings
+     * @param OrderRepository $orderRepository Repository for managing orders
+     * @param InvoiceRepository $invoiceRepository Repository for managing invoices
+     * @param CreditMemoRepository $creditMemoRepository Repository for managing credit memos
+     * @param RequestFactory $requestFactory Factory for generating payment requests
+     * @param PageFactory $pageFactory Factory for creating view pages
+     * @param Http $request HTTP request object for retrieving request data
+     * @param Json $jsonSerializer JSON serializer for encoding and decoding data
      */
     public function __construct(
         Context $context,
@@ -161,9 +194,9 @@ abstract class AbstractAction implements ActionApp
     }
 
     /**
-     * Get the HTTP request object.
+     * Get the HTTP request object
      *
-     * @return Http The HTTP request object.
+     * @return Http The HTTP request object
      */
     public function getRequest(): Http
     {

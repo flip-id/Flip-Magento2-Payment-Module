@@ -6,22 +6,27 @@ use Flip\Checkout\Model\Payment\AbstractPayment;
 
 /**
  * Class CheckoutSeamless
+ * 
  * Represents the seamless checkout payment method for Flip.
- *
- * This class is used for handling the payment integration for seamless checkout via Flip.
- * It extends the `AbstractPayment` class and defines the payment method code.
+ * This class handles the payment integration for seamless checkout via Flip,
+ * providing a streamlined payment experience for customers.
  *
  * @package Flip\Checkout\Model\Payment\Code
+ * @api
  */
 class CheckoutSeamless extends AbstractPayment
 {
     /**
-     * Payment method code for the seamless checkout payment.
+     * Payment method code for the seamless checkout payment
+     *
+     * @var string
      */
-    const CODE = 'flip_checkout_seamless';
+    public const CODE = 'flip_checkout_seamless';
 
     /**
-     * @var string The payment method code.
+     * Payment method code
+     *
+     * @var string
      */
     public string $code = self::CODE;
 }

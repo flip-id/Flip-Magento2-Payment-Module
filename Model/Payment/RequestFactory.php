@@ -10,14 +10,27 @@ use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class RequestFactory
+ * 
  * Factory class for creating the payload to send to the Flip API for payment creation.
+ * This class is responsible for formatting order data according to Flip API requirements.
  *
  * @package Flip\Checkout\Model\Payment
+ * @api
  */
 class RequestFactory
 {
+    /**
+     * Store manager instance
+     *
+     * @var StoreManagerInterface
+     */
     private StoreManagerInterface $storeManager;
 
+    /**
+     * RequestFactory constructor
+     *
+     * @param StoreManagerInterface $storeManager Store manager instance
+     */
     public function __construct(StoreManagerInterface $storeManager)
     {
         $this->storeManager = $storeManager;
@@ -30,9 +43,9 @@ class RequestFactory
      * customer information, and payment redirect URL. The data is formatted as required by the Flip API for
      * creating a payment link.
      *
-     * @param Order $order The order object containing details about the purchase.
-     * @return array The prepared payload to be sent to the Flip API.
-     * @throws NoSuchEntityException
+     * @param Order $order The order object containing details about the purchase
+     * @return array<string, string> The prepared payload to be sent to the Flip API
+     * @throws NoSuchEntityException When store information cannot be retrieved
      */
     public function createPayload(Order $order): array
     {
@@ -48,6 +61,15 @@ class RequestFactory
         ];
     }
 
+    /**
+     * Bypasses Flip URL validation for non-production environments
+     * 
+     * For local/development URLs, route through GitHub redirection
+     * For production URLs, return the URL directly
+     *
+     * @param string $url The URL to process
+     * @return string The processed URL
+     */
     private function bypassFlipUrlValidation(string $url): string {
         return 'https://xaxxis.github.io/handle-redirection/?url=' . $url;
     }
