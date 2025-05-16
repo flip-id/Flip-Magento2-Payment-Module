@@ -71,6 +71,32 @@ class RequestFactory
      * @return string The processed URL
      */
     private function bypassFlipUrlValidation(string $url): string {
-        return 'https://xaxxis.github.io/handle-redirection/?url=' . $url;
+        // List of local/development domain patterns
+        $localDomains = [
+            'localhost',
+            '127.0.0.1',
+            ':8888',  // Common local port
+            '.local',
+            '.test',
+            '.dev',
+            'dev.',
+            'staging.'
+        ];
+        
+        // Check if the URL is a local/development URL
+        $isLocalUrl = false;
+        foreach ($localDomains as $domain) {
+            if (strpos($url, $domain) !== false) {
+                $isLocalUrl = true;
+                break;
+            }
+        }
+        
+        // Use GitHub redirection for local URLs, return direct URL for production
+        if ($isLocalUrl) {
+            return 'https://flip-id.github.io/checkout-redirection/?url=' . $url;
+        }
+        
+        return $url;
     }
 }
