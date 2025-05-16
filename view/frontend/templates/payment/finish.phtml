@@ -1,23 +1,133 @@
-<?php /** @var $block Finish */
-
-use Vendor\Module\Block\Finish; ?>
+<?php /** @var $block \Flip\Checkout\Block\Payment\Finish */ ?>
 <?php $order = $block->getOrder(); ?>
 <?php $customerSession = $block->getCustomerSession(); ?>
 
-<?php if ($order): ?>
-    <h1><?= __('Thank You for Your Order!') ?></h1>
-    <p>
-        <?= __('Order ID: ') ?>
-        <?php if ($customerSession->isLoggedIn()): ?>
-            <a href="<?= $block->getOrderViewUrl($order->getId()); ?>">
-                <?= $order->getIncrementId(); ?>
-            </a>
-        <?php else: ?>
-            <?= $order->getIncrementId(); ?>
-        <?php endif; ?>
-    </p>
-    <p><?= __('Payment Status: ') ?><?= strtoupper($order->getStatus()); ?></p>
-    <p><?= __('Order Total: ') ?><?= $order->formatPrice($order->getGrandTotal()); ?></p>
-<?php else: ?>
-    <p><?= __('please retry in a moment...') ?></p>
-<?php endif; ?>
+<div class="checkout-success">
+    <?php if ($order && $order->getId()): ?>
+        <h1><?= __('Thank You for Your Order!') ?></h1>
+        <div class="order-details">
+            <p>
+                <?= __('Order ID: ') ?>
+                <span class="order-id">
+                <?php if ($customerSession->isLoggedIn()): ?>
+                    <a href="<?= $block->getOrderViewUrl($order->getId()); ?>">
+                        <?= $order->getIncrementId(); ?>
+                    </a>
+                <?php else: ?>
+                    <?= $order->getIncrementId(); ?>
+                <?php endif; ?>
+                </span>
+            </p>
+            <p><?= __('Order Status: ') ?><span class="status"><?= strtoupper($order->getStatus()); ?></span></p>
+            <p><?= __('Order Total: ') ?><span class="price"><?= $order->formatPrice($order->getGrandTotal()); ?></span></p>
+            
+            <?php if ($order->getStatus() === 'pending'): ?>
+                <div class="message info">
+                    <p><?= __('Your payment is being processed. Please wait a moment while we confirm your payment.') ?></p>
+                </div>
+            <?php elseif ($order->getStatus() === 'processing'): ?>
+                <div class="message success">
+                    <p><?= __('Your payment has been confirmed and your order is being processed.') ?></p>
+                </div>
+            <?php elseif ($order->getStatus() === 'canceled'): ?>
+                <div class="message error">
+                    <p><?= __('Your payment was not successful. Please try again or choose a different payment method.') ?></p>
+                </div>
+            <?php endif; ?>
+        </div>
+    <?php else: ?>
+        <div class="message error">
+            <p><?= __('We could not find your order. Please contact customer support if you have already made a payment.') ?></p>
+        </div>
+    <?php endif; ?>
+</div>
+
+<style>
+.checkout-success {
+    max-width: 600px;
+    margin: 20px auto;
+    padding: 20px;
+    background: #fff;
+    border-radius: 5px;
+    box-shadow: 0 2px 4px rgba(0,0,0,0.1);
+}
+
+.checkout-success h1 {
+    color: #333;
+    margin-bottom: 20px;
+    text-align: center;
+}
+
+.order-details {
+    margin-top: 20px;
+}
+
+.order-details p {
+    margin: 10px 0;
+    font-size: 16px;
+}
+
+.order-details .status {
+    font-weight: bold;
+}
+
+.order-details .price,
+.order-details .order-id {
+    font-weight: bold;
+    color: #2f7ed8;
+}
+
+.message {
+    margin: 20px 0;
+    padding: 15px;
+    border-radius: 4px;
+    display: flex;
+    align-items: flex-start;
+}
+
+.message p {
+    margin: 0;
+    flex: 1;
+}
+
+.message .icon {
+    margin-right: 10px;
+    font-size: 20px;
+    line-height: 20px;
+    display: inline-block;
+    width: 24px;
+    text-align: center;
+}
+
+.message.info {
+    background: #e8f4fd;
+    border: 1px solid #b8e2fb;
+    color: #2f7ed8;
+}
+
+.message.info .icon {
+    color: #2f7ed8;
+}
+
+.message.success {
+    background: #e8f8e8;
+    border: 1px solid #b8e2b8;
+    color: #1e7e34;
+}
+
+.message.success .icon {
+    color: #1e7e34;
+    font-weight: bold;
+}
+
+.message.error {
+    background: #f8e8e8;
+    border: 1px solid #e2b8b8;
+    color: #e02b27;
+}
+
+.message.error .icon {
+    color: #e02b27;
+    font-weight: bold;
+}
+</style>

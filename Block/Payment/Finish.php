@@ -23,11 +23,6 @@ class Finish extends Template
     protected $customerSession;
 
     /**
-     * @var Order|null
-     */
-    protected $order = null;
-
-    /**
      * Constructor
      *
      * @param Context $context
@@ -50,7 +45,12 @@ class Finish extends Template
      */
     public function getOrder(): ?Order
     {
-        return $this->order;
+        // First check if order is set in data array (from controller)
+        if ($order = $this->getData('order')) {
+            return $order;
+        }
+        
+        return null;
     }
 
     /**
@@ -61,7 +61,7 @@ class Finish extends Template
      */
     public function setOrder(Order $order): self
     {
-        $this->order = $order;
+        $this->setData('order', $order);
         return $this;
     }
 
