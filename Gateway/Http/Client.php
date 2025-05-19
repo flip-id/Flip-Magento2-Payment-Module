@@ -11,7 +11,7 @@ use Magento\Framework\HTTP\Client\Curl;
  * Class Client
  * Implements the ClientInterface for sending HTTP requests to an API using cURL.
  *
- * This class is responsible for sending HTTP POST requests to an API using the provided `Curl` client.
+ * This class is responsible for sending HTTP requests to an API using the provided `Curl` client.
  * It logs detailed information about the request and response for debugging purposes using the `FlipLogger`.
  *
  * @package Flip\Checkout\Gateway\Http
@@ -52,10 +52,18 @@ class Client implements ClientInterface
         $url = $transferObject->getUri();
         $headers = $transferObject->getHeaders();
         $body = $transferObject->getBody();
+        $method = $transferObject->getMethod();
 
-        // Set the request headers and send the POST request
+        // Set the request headers
         $this->curl->setHeaders($headers);
-        $this->curl->post($url, $body);
+        
+        // Send the request based on the method
+        if ($method === 'GET') {
+            $this->curl->get($url);
+        } else {
+            // Default to POST for backward compatibility
+            $this->curl->post($url, $body);
+        }
 
         // Get the response and decode the JSON
         $response = json_decode($this->curl->getBody(), true);
@@ -64,6 +72,7 @@ class Client implements ClientInterface
         $this->logger->logApiRequest(
             "API Call Details:\n" .
             "======================================== REQUEST ========================================\n" .
+            "Request Method: $method\n" .
             "Request URL: $url\n" .
             "Request Headers: " . json_encode($headers, JSON_PRETTY_PRINT) . "\n" .
             "Request Body: " . json_encode($body, JSON_PRETTY_PRINT) . "\n" .
