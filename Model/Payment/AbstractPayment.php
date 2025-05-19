@@ -1,8 +1,8 @@
 <?php
 
-namespace Flip\Checkout\Model\Payment;
+namespace FlipForBusiness\Checkout\Model\Payment;
 
-use Flip\Checkout\Logger\FlipLogger;
+use FlipForBusiness\Checkout\Logger\FlipLogger;
 use Magento\Framework\Event\ManagerInterface;
 use Magento\Payment\Gateway\Command\CommandManagerInterface;
 use Magento\Payment\Gateway\Command\CommandPoolInterface;
@@ -18,7 +18,7 @@ use Magento\Quote\Api\Data\CartInterface;
  * Provides a base payment method implementation for Flip payment methods.
  * This class extends the Magento Payment Adapter and implements core payment functionality.
  *
- * @package Flip\Checkout\Model\Payment
+ * @package FlipForBusiness\Checkout\Model\Payment
  * @api
  */
 class AbstractPayment extends Adapter

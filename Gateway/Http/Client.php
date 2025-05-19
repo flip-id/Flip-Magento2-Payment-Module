@@ -1,8 +1,8 @@
 <?php
 
-namespace Flip\Checkout\Gateway\Http;
+namespace FlipForBusiness\Checkout\Gateway\Http;
 
-use Flip\Checkout\Logger\FlipLogger;
+use FlipForBusiness\Checkout\Logger\FlipLogger;
 use Magento\Payment\Gateway\Http\ClientInterface;
 use Magento\Payment\Gateway\Http\TransferInterface;
 use Magento\Framework\HTTP\Client\Curl;
@@ -14,7 +14,7 @@ use Magento\Framework\HTTP\Client\Curl;
  * This class is responsible for sending HTTP requests to an API using the provided `Curl` client.
  * It logs detailed information about the request and response for debugging purposes using the `FlipLogger`.
  *
- * @package Flip\Checkout\Gateway\Http
+ * @package FlipForBusiness\Checkout\Gateway\Http
  */
 class Client implements ClientInterface
 {

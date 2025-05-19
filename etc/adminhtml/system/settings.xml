@@ -61,7 +61,7 @@
         </field>
         <field id="is_redirect" translate="label" type="select" sortOrder="70" showInDefault="1" showInWebsite="1" showInStore="0">
             <label>Flip Checkout Mode</label>
-            <source_model>Flip\Checkout\Model\Config\Source\CheckoutModeOptions</source_model>
+            <source_model>FlipForBusiness\Checkout\Model\Config\Source\CheckoutModeOptions</source_model>
         </field>
         <group id="notification" translate="label" type="text" sortOrder="90" showInDefault="1" showInWebsite="1" showInStore="1">
             <label><![CDATA[Webhook Callback Notification URL]]></label>
@@ -70,7 +70,7 @@
             <frontend_model>Magento\Config\Block\System\Config\Form\Fieldset</frontend_model>
             <field id="endpoint" translate="label" type="label" sortOrder="81" showInDefault="1" showInWebsite="1" showInStore="0">
                 <label>URL</label>
-                <frontend_model>Flip\Checkout\Block\Adminhtml\Config\CallbackUrl</frontend_model>
+                <frontend_model>FlipForBusiness\Checkout\Block\Adminhtml\Config\CallbackUrl</frontend_model>
                 <comment><![CDATA[Copy this endpoint URL and input as <b>Accept Payment Notification URL</b> value in the <a target="_blank" href="https://business.flip.id/developer/credentials">Flip Dashboard - Developer Menu</a>.]]></comment>
             </field>
         </group>

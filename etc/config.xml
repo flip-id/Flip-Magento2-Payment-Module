@@ -2,7 +2,7 @@
 <config xmlns:xsi="http://www.w3.org/2001/XMLSchema-instance" xsi:noNamespaceSchemaLocation="urn:magento:framework:Config/etc/config.xsd">
     <default>
         <payment>
-            <flip>
+            <flipforbusiness>
                 <settings>
                     <is_redirect>1</is_redirect>
                     <live_validation_key backend_model="Magento\Config\Model\Config\Backend\Encrypted"/>
@@ -16,18 +16,18 @@
                         <exception>0</exception>
                     </log>
                 </settings>
-            </flip>
-            <flip_checkout_seamless>
+            </flipforbusiness>
+            <flipforbusiness_checkout_seamless>
                 <active>1</active>
                 <title>Online Payment with Flip</title>
-                <model>Flip\Checkout\Model\Payment\Code\CheckoutSeamless</model>
+                <model>FlipForBusiness\Checkout\Model\Payment\Code\CheckoutSeamless</model>
                 <order_status>pending</order_status>
                 <is_gateway>1</is_gateway>
                 <can_use_checkout>1</can_use_checkout>
                 <can_authorize>1</can_authorize>
                 <can_capture>0</can_capture>
                 <can_refund>0</can_refund>
-            </flip_checkout_seamless>
+            </flipforbusiness_checkout_seamless>
         </payment>
     </default>
 </config>

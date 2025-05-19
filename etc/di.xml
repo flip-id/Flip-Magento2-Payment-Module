@@ -5,27 +5,27 @@
     <type name="Magento\Payment\Model\MethodList">
         <arguments>
             <argument name="methods" xsi:type="array">
-                <item name="flip_checkout_seamless" xsi:type="string">Flip\Checkout\Model\Payment\Code\CheckoutSeamless</item>
+                <item name="flipforbusiness_checkout_seamless" xsi:type="string">FlipForBusiness\Checkout\Model\Payment\Code\CheckoutSeamless</item>
             </argument>
         </arguments>
     </type>
 
     <!-- Define AbstractPayment dependencies -->
-    <type name="Flip\Checkout\Model\Payment\AbstractPayment">
+    <type name="FlipForBusiness\Checkout\Model\Payment\AbstractPayment">
         <arguments>
-            <argument name="code" xsi:type="const">Flip\Checkout\Model\Payment\Code\CheckoutSeamless::CODE</argument>
+            <argument name="code" xsi:type="const">FlipForBusiness\Checkout\Model\Payment\Code\CheckoutSeamless::CODE</argument>
             <argument name="valueHandlerPool" xsi:type="object">FlipCheckoutValueHandlerPool</argument>
             <argument name="validatorPool" xsi:type="object">FlipCheckoutValidatorPool</argument>
             <argument name="formBlockType" xsi:type="string">Magento\Payment\Block\Form</argument>
             <argument name="infoBlockType" xsi:type="string">Magento\Payment\Block\Info</argument>
-            <argument name="logger" xsi:type="object">Flip\Checkout\Logger\FlipLogger</argument>
+            <argument name="logger" xsi:type="object">FlipForBusiness\Checkout\Logger\FlipLogger</argument>
         </arguments>
     </type>
 
     <!-- START - Value Handler Pool -->
     <virtualType name="FlipCheckoutConfig" type="Magento\Payment\Gateway\Config\Config">
         <arguments>
-            <argument name="methodCode" xsi:type="const">Flip\Checkout\Model\Payment\Code\CheckoutSeamless::CODE</argument>
+            <argument name="methodCode" xsi:type="const">FlipForBusiness\Checkout\Model\Payment\Code\CheckoutSeamless::CODE</argument>
         </arguments>
     </virtualType>
     <virtualType name="FlipCheckoutConfigValueHandler" type="Magento\Payment\Gateway\Config\ConfigValueHandler">
@@ -65,26 +65,26 @@
     <!-- END - Validator Pool -->
 
     <!-- Define handlers -->
-    <type name="Flip\Checkout\Logger\Handler\ApiRequestHandler" shared="true"/>
-    <type name="Flip\Checkout\Logger\Handler\DebugHandler" shared="true"/>
-    <type name="Flip\Checkout\Logger\Handler\CallbackRequestHandler" shared="true"/>
-    <type name="Flip\Checkout\Logger\Handler\ErrorHandler" shared="true"/>
+    <type name="FlipForBusiness\Checkout\Logger\Handler\ApiRequestHandler" shared="true"/>
+    <type name="FlipForBusiness\Checkout\Logger\Handler\DebugHandler" shared="true"/>
+    <type name="FlipForBusiness\Checkout\Logger\Handler\CallbackRequestHandler" shared="true"/>
+    <type name="FlipForBusiness\Checkout\Logger\Handler\ErrorHandler" shared="true"/>
 
     <!-- Configure FlipLogger -->
-    <type name="Flip\Checkout\Logger\FlipLogger">
+    <type name="FlipForBusiness\Checkout\Logger\FlipLogger">
         <arguments>
             <argument name="name" xsi:type="string">flip_logger</argument>
-            <argument name="moduleConfig" xsi:type="object">Flip\Checkout\Model\Config\Payment\ModuleConfig</argument>
-            <argument name="apiRequestLogHandler" xsi:type="object">Flip\Checkout\Logger\Handler\ApiRequestHandler</argument>
-            <argument name="callbackLogHandler" xsi:type="object">Flip\Checkout\Logger\Handler\CallbackRequestHandler</argument>
-            <argument name="debugLogHandler" xsi:type="object">Flip\Checkout\Logger\Handler\DebugHandler</argument>
-            <argument name="errorHandler" xsi:type="object">Flip\Checkout\Logger\Handler\ErrorHandler</argument>
+            <argument name="moduleConfig" xsi:type="object">FlipForBusiness\Checkout\Model\Config\Payment\ModuleConfig</argument>
+            <argument name="apiRequestLogHandler" xsi:type="object">FlipForBusiness\Checkout\Logger\Handler\ApiRequestHandler</argument>
+            <argument name="callbackLogHandler" xsi:type="object">FlipForBusiness\Checkout\Logger\Handler\CallbackRequestHandler</argument>
+            <argument name="debugLogHandler" xsi:type="object">FlipForBusiness\Checkout\Logger\Handler\DebugHandler</argument>
+            <argument name="errorHandler" xsi:type="object">FlipForBusiness\Checkout\Logger\Handler\ErrorHandler</argument>
         </arguments>
     </type>
 
-    <type name="Flip\Checkout\Gateway\Http\Client">
+    <type name="FlipForBusiness\Checkout\Gateway\Http\Client">
         <arguments>
-            <argument name="logger" xsi:type="object">Flip\Checkout\Logger\FlipLogger</argument>
+            <argument name="logger" xsi:type="object">FlipForBusiness\Checkout\Logger\FlipLogger</argument>
         </arguments>
     </type>
 

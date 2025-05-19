@@ -1,6 +1,6 @@
 <?php
 
-namespace Flip\Checkout\Block\Adminhtml\Config;
+namespace FlipForBusiness\Checkout\Block\Adminhtml\Config;
 
 use Magento\Backend\Block\Context;
 use Magento\Backend\Model\Auth\Session;
@@ -17,7 +17,7 @@ use Magento\Framework\View\Helper\Js;
  * fieldset, including custom CSS class handling, header title, comments, and JavaScript functionality
  * to toggle the configuration sections.
  *
- * @package Flip\Checkout\Block\Adminhtml\Config
+ * @package FlipForBusiness\Checkout\Block\Adminhtml\Config
  */
 class Fieldset extends \Magento\Config\Block\System\Config\Form\Fieldset
 {

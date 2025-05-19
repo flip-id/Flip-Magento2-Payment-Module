@@ -1,6 +1,6 @@
 <?php
 
-namespace Flip\Checkout\Logger\Handler;
+namespace FlipForBusiness\Checkout\Logger\Handler;
 
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
@@ -12,7 +12,7 @@ use Monolog\Handler\StreamHandler;
  * This class extends Magento's `BaseHandler` and sets up a custom file (`flip_callback_requests.log`) for logging
  * callback request messages at the INFO log level. This helps track incoming callback requests from external services.
  *
- * @package Flip\Checkout\Logger\Handler
+ * @package FlipForBusiness\Checkout\Logger\Handler
  */
 class CallbackRequestHandler extends StreamHandler
 {

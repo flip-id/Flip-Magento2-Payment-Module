@@ -1,6 +1,6 @@
 <?php
 
-namespace Flip\Checkout\Controller\Payment;
+namespace FlipForBusiness\Checkout\Controller\Payment;
 
 use Magento\Framework\App\Action\HttpGetActionInterface;
 use Magento\Framework\App\CsrfAwareActionInterface;
@@ -18,7 +18,7 @@ use Magento\Sales\Model\Order;
  * Handles the finish step of the Flip Checkout payment process.
  * Displays a confirmation page with order details after the payment is processed successfully.
  *
- * @package Flip\Checkout\Controller\Payment
+ * @package FlipForBusiness\Checkout\Controller\Payment
  * @api
  */
 class Finish extends AbstractAction implements HttpGetActionInterface, CsrfAwareActionInterface

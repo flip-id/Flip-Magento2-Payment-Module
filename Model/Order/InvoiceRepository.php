@@ -1,9 +1,9 @@
 <?php
 
-namespace Flip\Checkout\Model\Order;
+namespace FlipForBusiness\Checkout\Model\Order;
 
 use Exception;
-use Flip\Checkout\Logger\FlipLogger;
+use FlipForBusiness\Checkout\Logger\FlipLogger;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Framework\Message\ManagerInterface as MessageManagerInterface;
 use Magento\Sales\Api\Data\InvoiceInterface;
@@ -19,7 +19,7 @@ use Magento\Sales\Model\Service\InvoiceService;
  * Handles the creation and management of invoices for Flip Checkout orders.
  * Provides functionality to generate invoices and save them to the Magento system.
  *
- * @package Flip\Checkout\Model\Order
+ * @package FlipForBusiness\Checkout\Model\Order
  */
 class InvoiceRepository
 {

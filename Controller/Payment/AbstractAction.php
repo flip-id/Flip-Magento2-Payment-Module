@@ -1,14 +1,14 @@
 <?php
 
-namespace Flip\Checkout\Controller\Payment;
+namespace FlipForBusiness\Checkout\Controller\Payment;
 
-use Flip\Checkout\Model\Order\CreditMemoRepository;
-use Flip\Checkout\Logger\FlipLogger;
-use Flip\Checkout\Model\Config\Payment\ModuleConfig;
-use Flip\Checkout\Model\Order\InvoiceRepository;
-use Flip\Checkout\Model\Order\OrderRepository;
-use Flip\Checkout\Model\Payment\RequestFactory;
-use Flip\Checkout\Service\FlipService;
+use FlipForBusiness\Checkout\Model\Order\CreditMemoRepository;
+use FlipForBusiness\Checkout\Logger\FlipLogger;
+use FlipForBusiness\Checkout\Model\Config\Payment\ModuleConfig;
+use FlipForBusiness\Checkout\Model\Order\InvoiceRepository;
+use FlipForBusiness\Checkout\Model\Order\OrderRepository;
+use FlipForBusiness\Checkout\Model\Payment\RequestFactory;
+use FlipForBusiness\Checkout\Service\FlipService;
 use Magento\Checkout\Model\Session;
 use Magento\Framework\App\Action\Context;
 use Magento\Framework\App\ActionInterface as ActionApp;
@@ -26,7 +26,7 @@ use Magento\Framework\App\Request\Http;
  * This abstract class serves as the base for payment-related controllers in the Flip Checkout module.
  * It provides common dependencies, initialization, and utility methods to simplify specific actions.
  *
- * @package Flip\Checkout\Controller\Payment
+ * @package FlipForBusiness\Checkout\Controller\Payment
  * @api
  */
 abstract class AbstractAction implements ActionApp

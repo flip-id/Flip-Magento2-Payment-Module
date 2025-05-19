@@ -1,12 +1,12 @@
 <?php
 
-namespace Flip\Checkout\Logger;
+namespace FlipForBusiness\Checkout\Logger;
 
-use Flip\Checkout\Logger\Handler\ApiRequestHandler;
-use Flip\Checkout\Logger\Handler\CallbackRequestHandler;
-use Flip\Checkout\Logger\Handler\DebugHandler;
-use Flip\Checkout\Logger\Handler\ErrorHandler;
-use Flip\Checkout\Model\Config\Payment\ModuleConfig;
+use FlipForBusiness\Checkout\Logger\Handler\ApiRequestHandler;
+use FlipForBusiness\Checkout\Logger\Handler\CallbackRequestHandler;
+use FlipForBusiness\Checkout\Logger\Handler\DebugHandler;
+use FlipForBusiness\Checkout\Logger\Handler\ErrorHandler;
+use FlipForBusiness\Checkout\Model\Config\Payment\ModuleConfig;
 use Monolog\Logger;
 
 /**
@@ -15,7 +15,7 @@ use Monolog\Logger;
  * Custom logger for the Flip Checkout module, extending Monolog's Logger class.
  * Provides methods for logging API requests, callbacks, debug messages, and errors.
  *
- * @package Flip\Checkout\Logger
+ * @package FlipForBusiness\Checkout\Logger
  */
 class FlipLogger extends Logger
 {

@@ -1,8 +1,8 @@
 <?php
 
-namespace Flip\Checkout\Block\Adminhtml\Config;
+namespace FlipForBusiness\Checkout\Block\Adminhtml\Config;
 
-use Flip\Checkout\Model\Config\Payment\ModuleConfig;
+use FlipForBusiness\Checkout\Model\Config\Payment\ModuleConfig;
 use Magento\Backend\Block\Template\Context;
 use Magento\Config\Block\System\Config\Form\Field;
 use Magento\Framework\Data\Form\Element\AbstractElement;
@@ -17,7 +17,7 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
  * The URL is intended to be used as a callback URL for payment notifications, and it is typically
  * configured in the Magento backend for payment-related operations.
  *
- * @package Flip\Checkout\Block\Adminhtml\Config
+ * @package FlipForBusiness\Checkout\Block\Adminhtml\Config
  */
 class CallbackUrl extends Field
 {

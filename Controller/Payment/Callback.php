@@ -1,6 +1,6 @@
 <?php
 
-namespace Flip\Checkout\Controller\Payment;
+namespace FlipForBusiness\Checkout\Controller\Payment;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\CsrfAwareActionInterface;
@@ -19,7 +19,7 @@ use Magento\Sales\Model\Order;
  * It validates the request, decodes the callback data, and updates the associated order
  * based on the payment status.
  *
- * @package Flip\Checkout\Controller\Payment
+ * @package FlipForBusiness\Checkout\Controller\Payment
  * @api
  */
 class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAwareActionInterface

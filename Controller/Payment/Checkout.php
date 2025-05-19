@@ -1,6 +1,6 @@
 <?php
 
-namespace Flip\Checkout\Controller\Payment;
+namespace FlipForBusiness\Checkout\Controller\Payment;
 
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\CsrfAwareActionInterface;
@@ -16,7 +16,7 @@ use Magento\Sales\Model\Order;
  * Handles the creation of a payment link using the Flip API during the checkout process.
  * This controller is responsible for initiating the payment process and creating payment links.
  *
- * @package Flip\Checkout\Controller\Payment
+ * @package FlipForBusiness\Checkout\Controller\Payment
  * @api
  */
 class Checkout extends AbstractAction implements HttpPostActionInterface, CsrfAwareActionInterface

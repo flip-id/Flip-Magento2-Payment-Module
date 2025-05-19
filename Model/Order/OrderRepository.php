@@ -1,9 +1,9 @@
 <?php
 
-namespace Flip\Checkout\Model\Order;
+namespace FlipForBusiness\Checkout\Model\Order;
 
-use Flip\Checkout\Logger\FlipLogger;
-use Flip\Checkout\Model\Config\Payment\ModuleConfig;
+use FlipForBusiness\Checkout\Logger\FlipLogger;
+use FlipForBusiness\Checkout\Model\Config\Payment\ModuleConfig;
 use Magento\Framework\Api\SearchCriteriaBuilder;
 use Magento\Framework\DB\Transaction;
 use Magento\Framework\Exception\CouldNotSaveException;

@@ -25,11 +25,11 @@ This is the **Flip Payment Module for Magento 2**, enabling seamless integration
 1. Download the module from [GitHub Releases](https://github.com/flip-id/Flip-Magento2-Payment-Module/releases).
 2. Extract and copy the files into:
    ```
-   app/code/Flip/Checkout/
+   app/code/FlipForBusiness/Checkout/
    ```
 3. Run the following Magento CLI commands:
    ```sh
-   bin/magento module:enable Flip_Checkout
+   bin/magento module:enable FlipForBusiness_Checkout
    bin/magento setup:upgrade
    bin/magento cache:flush
    ```
@@ -64,7 +64,7 @@ To ensure **payment status updates** are received by your Magento store, you nee
 3. Scroll down to the **Accept Payment** section.
 4. Enter the following **Callback URL**:
    ```
-   https://yourstore.com/flip/payment/callback
+   https://yourstore.com/flipforbusiness/payment/callback
    ```
    Replace `yourstore.com` with your actual Magento store domain.
 
@@ -78,18 +78,18 @@ This URL will handle Flip's **payment callback** notifications, ensuring that pa
 ### 1. Payments Not Updating
 - Ensure **Webhook URL** is set in Flip dashboard:
   ```
-   https://yourstore.com/flip/payment/callback
+   https://yourstore.com/flipforbusiness/payment/callback
   ```
 - Make sure your **API Key** and **Validation Key** is correct.
 
 ### 2. "Module Not Found" Error
 - Run:
   ```sh
-  bin/magento module:status | grep Flip_Payment
+  bin/magento module:status | grep FlipForBusiness_Checkout
   ```
   If disabled, enable it using:
   ```sh
-  bin/magento module:enable Flip_Payment
+  bin/magento module:enable FlipForBusiness_Checkout
   ```
 
 ### 3. Cache Issues

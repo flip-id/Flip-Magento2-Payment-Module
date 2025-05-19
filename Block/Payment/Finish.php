@@ -1,6 +1,6 @@
 <?php
 
-namespace Flip\Checkout\Block\Payment;
+namespace FlipForBusiness\Checkout\Block\Payment;
 
 use Magento\Framework\View\Element\Template;
 use Magento\Framework\View\Element\Template\Context;
@@ -12,7 +12,7 @@ use Magento\Sales\Model\Order;
  * 
  * Block class for handling the payment finish page display
  *
- * @package Flip\Checkout\Block\Payment
+ * @package FlipForBusiness\Checkout\Block\Payment
  * @api
  */
 class Finish extends Template

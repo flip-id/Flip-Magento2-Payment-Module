@@ -1,8 +1,8 @@
 <?php
 
-namespace Flip\Checkout\Gateway\Http;
+namespace FlipForBusiness\Checkout\Gateway\Http;
 
-use Flip\Checkout\Gateway\Config\Config;
+use FlipForBusiness\Checkout\Gateway\Config\Config;
 use Magento\Payment\Gateway\Http\TransferBuilder;
 use Magento\Payment\Gateway\Http\TransferInterface;
 use Magento\Store\Model\StoreManagerInterface;
@@ -15,7 +15,7 @@ use Magento\Store\Model\StoreManagerInterface;
  * which contains all the necessary information to make an HTTP request, such as method, headers, URI, and body.
  * The factory fetches configuration values from the module's settings, such as the base URL, API key, and business ID.
  *
- * @package Flip\Checkout\Gateway\Http
+ * @package FlipForBusiness\Checkout\Gateway\Http
  */
 class RequestFactory
 {
@@ -33,6 +33,7 @@ class RequestFactory
      * RequestFactory constructor.
      *
      * @param TransferBuilder $transferBuilder The builder used to create TransferInterface objects.
+     * @param StoreManagerInterface $storeManager The store manager service.
      * @param Config $config The configuration class containing API and other module-related settings.
      */
     public function __construct(

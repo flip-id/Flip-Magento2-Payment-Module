@@ -1,12 +1,12 @@
 <?php
 
-namespace Flip\Checkout\Model\Config\Payment;
+namespace FlipForBusiness\Checkout\Model\Config\Payment;
 
-use Flip\Checkout\Logger\FlipLogger;
-use Flip\Checkout\Logger\Handler\ApiRequestHandler;
-use Flip\Checkout\Logger\Handler\CallbackRequestHandler;
-use Flip\Checkout\Logger\Handler\DebugHandler;
-use Flip\Checkout\Logger\Handler\ErrorHandler;
+use FlipForBusiness\Checkout\Logger\FlipLogger;
+use FlipForBusiness\Checkout\Logger\Handler\ApiRequestHandler;
+use FlipForBusiness\Checkout\Logger\Handler\CallbackRequestHandler;
+use FlipForBusiness\Checkout\Logger\Handler\DebugHandler;
+use FlipForBusiness\Checkout\Logger\Handler\ErrorHandler;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Store\Model\ScopeInterface;
 use Magento\Framework\Encryption\EncryptorInterface;
@@ -18,14 +18,14 @@ use Magento\Store\Model\StoreManagerInterface;
  * Provides methods for retrieving configuration values related to the Flip payment module.
  * Handles settings such as live mode, business ID, API secret keys, and validation keys.
  *
- * @package Flip\Checkout\Model\Config\Payment
+ * @package FlipForBusiness\Checkout\Model\Config\Payment
  */
 class ModuleConfig
 {
     /**
      * Base configuration path for Flip payment settings.
      */
-    protected const BASE_CONFIG_PATH = 'payment/flip/settings/';
+    protected const BASE_CONFIG_PATH = 'payment/flipforbusiness/settings/';
 
     /**
      * @var ScopeConfigInterface ScopeConfigInterface instance for accessing Magento's configuration.
@@ -102,11 +102,12 @@ class ModuleConfig
     /**
      * Retrieves the business ID configured for the payment method.
      *
-     * @return string The configured Flip business ID.
+     * @return string The configured Flip business ID or empty string if not configured.
      */
     public function getBusinessId(): string
     {
-        return $this->getDataConfig('flip_business_id');
+        $businessId = $this->getDataConfig('flip_business_id');
+        return $businessId !== null ? (string)$businessId : '';
     }
 
     /**
@@ -114,14 +115,15 @@ class ModuleConfig
      *
      * If the module is in live mode, it retrieves the live API secret key; otherwise, it retrieves the test API secret key.
      *
-     * @return string The decrypted API secret key for the configured mode (live or test).
+     * @return string The decrypted API secret key for the configured mode (live or test) or empty string if not configured.
      */
     public function getApiSecretKey(): string
     {
-        if ($this->isLive()) {
-            return $this->getDataConfig('live_api_secret_key');
-        } else
-            return $this->getDataConfig('test_api_secret_key');
+        $apiKey = $this->isLive() 
+            ? $this->getDataConfig('live_api_secret_key')
+            : $this->getDataConfig('test_api_secret_key');
+            
+        return $apiKey !== null ? (string)$apiKey : '';
     }
 
 
@@ -130,15 +132,15 @@ class ModuleConfig
      *
      * If the module is in live mode, it retrieves the live validation key; otherwise, it retrieves the test validation key.
      *
-     * @return string The decrypted validation key for the configured mode (live or test).
+     * @return string The decrypted validation key for the configured mode (live or test) or empty string if not configured.
      */
     public function getValidationKey(): string
     {
-        if ($this->isLive()) {
-            return $this->getDataConfig('live_validation_key');
-        } else {
-            return $this->getDataConfig('test_validation_key');
-        }
+        $validationKey = $this->isLive()
+            ? $this->getDataConfig('live_validation_key')
+            : $this->getDataConfig('test_validation_key');
+            
+        return $validationKey !== null ? (string)$validationKey : '';
     }
 
     /**
@@ -198,12 +200,17 @@ class ModuleConfig
     }
 
     /**
-     * @return string
+     * Get the callback URL for Flip API notifications.
+     * 
+     * Returns the full URL that Flip should use to send payment status updates
+     * to the store. Uses the current store's base URL with the payment callback endpoint.
+     *
+     * @return string The callback URL or empty string if store info can't be retrieved
      */
     public function getCallbackUrl(): string
     {
         try {
-            return $this->_storeManager->getStore()->getBaseUrl() . 'flip/payment/callback';
+            return $this->_storeManager->getStore()->getBaseUrl() . 'flipforbusiness/payment/callback';
         } catch (NoSuchEntityException $e) {
             return '';
         }

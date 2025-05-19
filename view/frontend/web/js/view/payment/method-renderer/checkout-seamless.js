@@ -17,12 +17,12 @@ define(
 
         return Component.extend({
             defaults: {
-                template: 'Flip_Checkout/payment/checkout_seamless',
+                template: 'FlipForBusiness_Checkout/payment/checkout_seamless',
                 redirectAfterPlaceOrder: false
             },
 
             getIcon: function () {
-                return require.toUrl('Flip_Checkout/images/methods/flip_checkout_seamless.svg');
+                return require.toUrl('FlipForBusiness_Checkout/images/methods/flipforbusiness_checkout_seamless.svg');
             },
 
             afterPlaceOrder: function () {
@@ -45,7 +45,7 @@ define(
                 };
 
                 $.ajax({
-                    url: url.build('flip/payment/checkout'),
+                    url: url.build('flipforbusiness/payment/checkout'),
                     method: 'POST',
                     contentType: 'application/json',
                     data: JSON.stringify(payload),

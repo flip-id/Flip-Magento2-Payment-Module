@@ -1,8 +1,8 @@
 <?php
 
-namespace Flip\Checkout\Gateway\Config;
+namespace FlipForBusiness\Checkout\Gateway\Config;
 
-use Flip\Checkout\Model\Config\Payment\ModuleConfig;
+use FlipForBusiness\Checkout\Model\Config\Payment\ModuleConfig;
 use Magento\Framework\App\Config\ScopeConfigInterface;
 use Magento\Framework\Encryption\EncryptorInterface;
 use Magento\Payment\Gateway\Config\Config as MagentoPaymentGatewayConfig;
@@ -13,14 +13,14 @@ use Magento\Payment\Gateway\Config\Config as MagentoPaymentGatewayConfig;
  * Handles the configuration settings for the Flip Checkout seamless payment method.
  * Provides methods to retrieve the correct base URL (live or sandbox) and access module-specific configurations.
  *
- * @package Flip\Checkout\Gateway\Config
+ * @package FlipForBusiness\Checkout\Gateway\Config
  */
 class Config extends MagentoPaymentGatewayConfig
 {
     /**
      * Payment method code
      */
-    const CODE = 'flip_checkout_seamless';
+    const CODE = 'flipforbusiness_checkout_seamless';
 
     /**
      * Base URL for test mode
@@ -52,7 +52,7 @@ class Config extends MagentoPaymentGatewayConfig
         ModuleConfig         $moduleConfig,
         ScopeConfigInterface $scopeConfig,
         EncryptorInterface   $encryptor,
-        string               $methodCode = null,
+        ?string              $methodCode = null,
         string               $pathPattern = self::DEFAULT_PATH_PATTERN
     ) {
         parent::__construct($scopeConfig, $methodCode, $pathPattern, $encryptor);

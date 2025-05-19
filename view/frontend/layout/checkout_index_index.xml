@@ -16,10 +16,10 @@
                           <item name="children" xsi:type="array">
                             <item name="renders" xsi:type="array">
                               <item name="children" xsi:type="array">
-                                <item name="flip" xsi:type="array">
-                                  <item name="component" xsi:type="string">Flip_Checkout/js/view/payment/flip-checkout</item>
+                                <item name="flipforbusiness" xsi:type="array">
+                                  <item name="component" xsi:type="string">FlipForBusiness_Checkout/js/view/payment/flipforbusiness-checkout</item>
                                   <item name="methods" xsi:type="array">
-                                    <item name="flip_checkout_seamless" xsi:type="array">
+                                    <item name="flipforbusiness_checkout_seamless" xsi:type="array">
                                       <item name="isBillingAddressRequired" xsi:type="boolean">true</item>
                                     </item>
                                   </item>

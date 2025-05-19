@@ -1,6 +1,6 @@
 <?php
 
-namespace Flip\Checkout\Logger\Handler;
+namespace FlipForBusiness\Checkout\Logger\Handler;
 
 use Monolog\Formatter\LineFormatter;
 use Monolog\Handler\StreamHandler;
@@ -12,7 +12,7 @@ use Monolog\Handler\StreamHandler;
  * This class extends Magento's `BaseHandler` and sets up a custom file (`flip_debug.log`) for logging debug messages.
  * It uses Monolog's `Logger::DEBUG` log level to capture and store debug-level logs.
  *
- * @package Flip\Checkout\Logger\Handler
+ * @package FlipForBusiness\Checkout\Logger\Handler
  */
 class DebugHandler extends StreamHandler
 {

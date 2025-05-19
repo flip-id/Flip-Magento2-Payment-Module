@@ -1,10 +1,10 @@
 <?php
 
-namespace Flip\Checkout\Service;
+namespace FlipForBusiness\Checkout\Service;
 
-use Flip\Checkout\Gateway\Http\RequestFactory;
-use Flip\Checkout\Gateway\Http\Client;
-use Flip\Checkout\Model\Config\Payment\ModuleConfig;
+use FlipForBusiness\Checkout\Gateway\Http\RequestFactory;
+use FlipForBusiness\Checkout\Gateway\Http\Client;
+use FlipForBusiness\Checkout\Model\Config\Payment\ModuleConfig;
 use Magento\Framework\Exception\LocalizedException;
 use Magento\Payment\Gateway\Http\ClientException;
 use Magento\Payment\Gateway\Http\ConverterException;
@@ -14,7 +14,7 @@ use Magento\Framework\Serialize\Serializer\Json;
  * Class FlipService
  * Provides services for interacting with the Flip API, such as creating a bill.
  *
- * @package Flip\Checkout\Service
+ * @package FlipForBusiness\Checkout\Service
  */
 class FlipService
 {

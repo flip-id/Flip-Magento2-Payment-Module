@@ -1,8 +1,8 @@
 <?php
 
-namespace Flip\Checkout\Model\Payment;
+namespace FlipForBusiness\Checkout\Model\Payment;
 
-use Flip\Checkout\Model\Config\Payment\ModuleConfig;
+use FlipForBusiness\Checkout\Model\Config\Payment\ModuleConfig;
 use Magento\Framework\Exception\NoSuchEntityException;
 use Magento\Framework\HTTP\Client\Curl;
 use Magento\Sales\Model\Order;
@@ -14,7 +14,7 @@ use Magento\Store\Model\StoreManagerInterface;
  * Factory class for creating the payload to send to the Flip API for payment creation.
  * This class is responsible for formatting order data according to Flip API requirements.
  *
- * @package Flip\Checkout\Model\Payment
+ * @package FlipForBusiness\Checkout\Model\Payment
  * @api
  */
 class RequestFactory
@@ -49,7 +49,7 @@ class RequestFactory
      */
     public function createPayload(Order $order): array
     {
-        $finishUrl = $this->storeManager->getStore()->getUrl() . 'flip/payment/finish?state=' . $order->getRealOrderId();
+        $finishUrl = $this->storeManager->getStore()->getUrl() . 'flipforbusiness/payment/finish?state=' . $order->getRealOrderId();
         return [
             'title' => $order->getRealOrderId(),
             'type' => "SINGLE",

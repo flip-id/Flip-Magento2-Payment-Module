@@ -1,6 +1,6 @@
 <?php
 
-namespace Flip\Checkout\Model\Order;
+namespace FlipForBusiness\Checkout\Model\Order;
 
 
 use Magento\Sales\Api\CreditmemoManagementInterface;

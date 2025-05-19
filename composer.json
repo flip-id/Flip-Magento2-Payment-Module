@@ -1,6 +1,6 @@
 {
-  "name": "flip/checkout",
-  "description": "Flip for Business Magento 2 Payment Module",
+  "name": "flipforbusiness/checkout",
+  "description": "FlipForBusiness Magento 2 Payment Module",
   "type": "magento2-module",
   "version": "1.0.0",
   "authors" : [
@@ -33,16 +33,16 @@
   "autoload": {
     "files": ["registration.php"],
     "psr-4": {
-      "Flip\\Checkout\\": ""
+      "FlipForBusiness\\Checkout\\": ""
     }
   },
   "keywords": [
     "magento2",
     "magento 2",
-    "flip",
+    "flipforbusiness",
     "flip for business",
-    "flip checkout",
-    "flip magento2",
+    "flipforbusiness checkout",
+    "flipforbusiness magento2",
     "payment",
     "payment gateway"
   ],
