@@ -183,32 +183,45 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
     {
         $order = $this->orderRepository->getOrderByLinkId($data['bill_link_id']);
         if ($order->getId()) {
-            if ($data['status'] === 'SUCCESSFUL') {
-                $paymentMethod = strtoupper($data['sender_bank_type']) . '-' . strtoupper($data['sender_bank']);
-                $this->orderRepository->setStateAndStatus(
-                    $order,
-                    Order::STATE_PROCESSING,
-                    "<strong style='color: green;'>Payment Successfully!</strong><br>" .
-                    "- Payment Transaction Id: {$data['id']}<br>- Payment Status: {$data['status']}<br>- Payment Method: {$paymentMethod}",
-                    true
-                );
-                $this->orderRepository->setAdditionalPaymentInfo($order, 'flip_trx_id', $data['id']);
-                $this->orderRepository->saveOrder($order);
+            try {
+                // Verify transaction status with Flip API for additional security
+                $isVerified = $this->flipService->verifyTransactionStatus($data);
+                if (!$isVerified) {
+                    $this->logger->logErrorException("Transaction verification failed for bill_link_id: {$data['bill_link_id']}", 
+                        new \Exception("Callback data doesn't match API response"));
+                    throw new LocalizedException(__('Transaction verification failed. Please contact support.'));
+                }
 
-                $this->invoiceRepository->createInvoice($order, $data);
-            } elseif (in_array($data['status'], ['CANCELLED', 'FAILED'])) {
-                $statusTitle = $data['status'] === 'CANCELLED' ? 'Expired' : 'Failed';
-                $this->orderRepository->setStateAndStatus(
-                    $order,
-                    Order::STATE_CANCELED,
-                    "<strong style='color: red;'>Flip Bill {$statusTitle}!</strong><br>" .
-                    "- Payment Transaction Id: {$data['id']}<br>- Payment Status: {$data['status']}",
-                    true
-                );
-                $this->orderRepository->setAdditionalPaymentInfo($order, 'flip_trx_id', $data['id']);
-                $this->orderRepository->saveOrder($order);
-            } else {
-                throw new LocalizedException(__('Payment was not successful'));
+                if ($data['status'] === 'SUCCESSFUL') {
+                    $paymentMethod = strtoupper($data['sender_bank_type']) . '-' . strtoupper($data['sender_bank']);
+                    $this->orderRepository->setStateAndStatus(
+                        $order,
+                        Order::STATE_PROCESSING,
+                        "<strong style='color: green;'>Payment Successfully!</strong><br>" .
+                        "- Payment Transaction Id: {$data['id']}<br>- Payment Status: {$data['status']}<br>- Payment Method: {$paymentMethod}",
+                        true
+                    );
+                    $this->orderRepository->setAdditionalPaymentInfo($order, 'flip_trx_id', $data['id']);
+                    $this->orderRepository->saveOrder($order);
+
+                    $this->invoiceRepository->createInvoice($order, $data);
+                } elseif (in_array($data['status'], ['CANCELLED', 'FAILED'])) {
+                    $statusTitle = $data['status'] === 'CANCELLED' ? 'Expired' : 'Failed';
+                    $this->orderRepository->setStateAndStatus(
+                        $order,
+                        Order::STATE_CANCELED,
+                        "<strong style='color: red;'>Flip Bill {$statusTitle}!</strong><br>" .
+                        "- Payment Transaction Id: {$data['id']}<br>- Payment Status: {$data['status']}",
+                        true
+                    );
+                    $this->orderRepository->setAdditionalPaymentInfo($order, 'flip_trx_id', $data['id']);
+                    $this->orderRepository->saveOrder($order);
+                } else {
+                    throw new LocalizedException(__('Payment was not successful'));
+                }
+            } catch (\Exception $e) {
+                $this->logger->logErrorException("Error processing payment: {$e->getMessage()}", $e);
+                throw new LocalizedException(__($e->getMessage()));
             }
         } else {
             throw new LocalizedException(__('Order not found'));
