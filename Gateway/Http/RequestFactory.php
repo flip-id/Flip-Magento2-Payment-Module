@@ -60,7 +60,7 @@ class RequestFactory
 
         // Build the TransferInterface object with necessary details
         return $this->transferBuilder
-            ->setMethod(method: $method)
+            ->setMethod($method)
             ->setHeaders([
                 'Content-Type' => 'application/x-www-form-urlencoded',
                 'Authorization' => 'Basic ' . base64_encode($apiKey . ':'),
