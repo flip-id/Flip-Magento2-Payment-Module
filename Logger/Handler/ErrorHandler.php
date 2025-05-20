@@ -7,17 +7,15 @@ use Monolog\Logger;
 
 /**
  * Class ErrorHandler
- * 
+ *
  * Handler for error-level log messages related to the Flip payment module.
  * Writes error logs to a dedicated file.
- *
- * @package FlipForBusiness\Checkout\Logger\Handler
  */
 class ErrorHandler extends StreamHandler
 {
     /**
      * Constructor for the ErrorHandler.
-     * 
+     *
      * Initializes a StreamHandler to write error logs to flip_error.log
      * and sets the minimum log level to ERROR.
      */

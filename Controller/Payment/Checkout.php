@@ -12,11 +12,10 @@ use Magento\Sales\Model\Order;
 
 /**
  * Class Checkout
- * 
+ *
  * Handles the creation of a payment link using the Flip API during the checkout process.
  * This controller is responsible for initiating the payment process and creating payment links.
  *
- * @package FlipForBusiness\Checkout\Controller\Payment
  * @api
  */
 class Checkout extends AbstractAction implements HttpPostActionInterface, CsrfAwareActionInterface

@@ -19,7 +19,6 @@ use Magento\Sales\Model\Service\InvoiceService;
  * Handles the creation and management of invoices for Flip Checkout orders.
  * Provides functionality to generate invoices and save them to the Magento system.
  *
- * @package FlipForBusiness\Checkout\Model\Order
  */
 class InvoiceRepository
 {
@@ -59,8 +58,11 @@ class InvoiceRepository
      */
     protected MessageManagerInterface $messageManager;
 
+    /**
+     * @var InvoiceSender
+     * Invoice email sender service.
+     */
     private InvoiceSender $invoiceSender;
-
 
     /**
      * InvoiceRepository constructor.
@@ -69,6 +71,7 @@ class InvoiceRepository
      * @param FlipLogger $logger Logger instance for debugging and error tracking.
      * @param Invoice $invoice Invoice model for handling invoice operations.
      * @param InvoiceService $invoiceService Service class for preparing invoices.
+     * @param InvoiceSender $invoiceSender Email sender for invoice notifications.
      * @param InvoiceRepositoryInterface $magentoInvoiceRepository Interface for saving invoices.
      * @param MessageManagerInterface $messageManager Manager for displaying messages in the Magento admin.
      */
@@ -99,6 +102,7 @@ class InvoiceRepository
      * error and displays an error message to the admin user.
      *
      * @param Order $order The Magento order for which to create an invoice.
+     * @param array $data Payment transaction data.
      * @return void
      */
     public function createInvoice(Order $order, $data): void

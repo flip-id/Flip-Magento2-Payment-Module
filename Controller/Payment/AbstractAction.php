@@ -22,12 +22,9 @@ use Magento\Framework\App\Request\Http;
 
 /**
  * AbstractAction class for handling payment-related actions
- * 
+ *
  * This abstract class serves as the base for payment-related controllers in the Flip Checkout module.
  * It provides common dependencies, initialization, and utility methods to simplify specific actions.
- *
- * @package FlipForBusiness\Checkout\Controller\Payment
- * @api
  */
 abstract class AbstractAction implements ActionApp
 {

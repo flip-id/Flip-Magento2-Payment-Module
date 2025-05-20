@@ -14,8 +14,6 @@ use Magento\Store\Model\StoreManagerInterface;
  * This class is responsible for building and configuring a `TransferInterface` object,
  * which contains all the necessary information to make an HTTP request, such as method, headers, URI, and body.
  * The factory fetches configuration values from the module's settings, such as the base URL, API key, and business ID.
- *
- * @package FlipForBusiness\Checkout\Gateway\Http
  */
 class RequestFactory
 {

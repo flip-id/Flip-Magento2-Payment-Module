@@ -12,25 +12,23 @@ use Magento\Payment\Gateway\Config\Config as MagentoPaymentGatewayConfig;
  *
  * Handles the configuration settings for the Flip Checkout seamless payment method.
  * Provides methods to retrieve the correct base URL (live or sandbox) and access module-specific configurations.
- *
- * @package FlipForBusiness\Checkout\Gateway\Config
  */
 class Config extends MagentoPaymentGatewayConfig
 {
     /**
      * Payment method code
      */
-    const CODE = 'flipforbusiness_checkout_seamless';
+    public const CODE = 'flipforbusiness_checkout_seamless';
 
     /**
      * Base URL for test mode
      */
-    const TEST_MODE_BASE_URL = 'https://bigflip.id/big_sandbox_api';
+    public const TEST_MODE_BASE_URL = 'https://bigflip.id/big_sandbox_api';
 
     /**
      * Base URL for live mode
      */
-    const LIVE_MODE_BASE_URL = 'https://bigflip.id/api';
+    public const LIVE_MODE_BASE_URL = 'https://bigflip.id/api';
 
     /**
      * Module configuration instance

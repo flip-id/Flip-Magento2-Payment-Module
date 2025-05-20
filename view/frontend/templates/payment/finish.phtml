@@ -4,40 +4,40 @@
 
 <div class="checkout-success">
     <?php if ($order && $order->getId()): ?>
-        <h1><?= __('Thank You for Your Order!') ?></h1>
+        <h1><?= $block->escapeHtml(__('Thank You for Your Order!')) ?></h1>
         <div class="order-details">
             <p>
-                <?= __('Order ID: ') ?>
+                <?= $block->escapeHtml(__('Order ID: ')) ?>
                 <span class="order-id">
                 <?php if ($customerSession->isLoggedIn()): ?>
-                    <a href="<?= $block->getOrderViewUrl($order->getId()); ?>">
-                        <?= $order->getIncrementId(); ?>
+                    <a href="<?= $block->escapeUrl($block->getOrderViewUrl($order->getId())) ?>">
+                        <?= $block->escapeHtml($order->getIncrementId()) ?>
                     </a>
                 <?php else: ?>
-                    <?= $order->getIncrementId(); ?>
+                    <?= $block->escapeHtml($order->getIncrementId()) ?>
                 <?php endif; ?>
                 </span>
             </p>
-            <p><?= __('Order Status: ') ?><span class="status"><?= strtoupper($order->getStatus()); ?></span></p>
-            <p><?= __('Order Total: ') ?><span class="price"><?= $order->formatPrice($order->getGrandTotal()); ?></span></p>
+            <p><?= $block->escapeHtml(__('Order Status: ')) ?><span class="status"><?= $block->escapeHtml(strtoupper($order->getStatus())) ?></span></p>
+            <p><?= $block->escapeHtml(__('Order Total: ')) ?><span class="price"><?= $block->escapeHtml($order->formatPrice($order->getGrandTotal())) ?></span></p>
             
             <?php if ($order->getStatus() === 'pending'): ?>
                 <div class="message info">
-                    <p><?= __('Your payment is being processed. Please wait a moment while we confirm your payment.') ?></p>
+                    <p><?= $block->escapeHtml(__('Your payment is being processed. Please wait a moment while we confirm your payment.')) ?></p>
                 </div>
             <?php elseif ($order->getStatus() === 'processing'): ?>
                 <div class="message success">
-                    <p><?= __('Your payment has been confirmed and your order is being processed.') ?></p>
+                    <p><?= $block->escapeHtml(__('Your payment has been confirmed and your order is being processed.')) ?></p>
                 </div>
             <?php elseif ($order->getStatus() === 'canceled'): ?>
                 <div class="message error">
-                    <p><?= __('Your payment was not successful. Please try again or choose a different payment method.') ?></p>
+                    <p><?= $block->escapeHtml(__('Your payment was not successful. Please try again or choose a different payment method.')) ?></p>
                 </div>
             <?php endif; ?>
         </div>
     <?php else: ?>
         <div class="message error">
-            <p><?= __('We could not find your order. Please contact customer support if you have already made a payment.') ?></p>
+            <p><?= $block->escapeHtml(__('We could not find your order. Please contact customer support if you have already made a payment.')) ?></p>
         </div>
     <?php endif; ?>
 </div>

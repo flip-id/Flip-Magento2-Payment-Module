@@ -9,10 +9,9 @@ use Magento\Sales\Model\Order;
 
 /**
  * Class Finish
- * 
+ *
  * Block class for handling the payment finish page display
  *
- * @package FlipForBusiness\Checkout\Block\Payment
  * @api
  */
 class Finish extends Template
@@ -85,4 +84,4 @@ class Finish extends Template
     {
         return $this->getUrl('sales/order/view', ['order_id' => $orderId]);
     }
-} 
+}

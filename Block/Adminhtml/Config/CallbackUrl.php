@@ -17,7 +17,6 @@ use Magento\Framework\Data\Form\Element\AbstractElement;
  * The URL is intended to be used as a callback URL for payment notifications, and it is typically
  * configured in the Magento backend for payment-related operations.
  *
- * @package FlipForBusiness\Checkout\Block\Adminhtml\Config
  */
 class CallbackUrl extends Field
 {

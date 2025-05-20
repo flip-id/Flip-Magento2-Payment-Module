@@ -6,11 +6,9 @@ use Magento\Framework\Data\OptionSourceInterface;
 
 /**
  * Class CheckoutModeOptions
- * 
+ *
  * Provides options for the checkout mode configuration in the admin panel.
  * Currently only supports 'Redirect' mode for the Flip payment method.
- *
- * @package FlipForBusiness\Checkout\Model\Config\Source
  */
 class CheckoutModeOptions implements OptionSourceInterface
 {

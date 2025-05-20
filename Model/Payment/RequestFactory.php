@@ -10,11 +10,10 @@ use Magento\Store\Model\StoreManagerInterface;
 
 /**
  * Class RequestFactory
- * 
+ *
  * Factory class for creating the payload to send to the Flip API for payment creation.
  * This class is responsible for formatting order data according to Flip API requirements.
  *
- * @package FlipForBusiness\Checkout\Model\Payment
  * @api
  */
 class RequestFactory
@@ -63,14 +62,15 @@ class RequestFactory
 
     /**
      * Bypasses Flip URL validation for non-production environments
-     * 
+     *
      * For local/development URLs, route through GitHub redirection
      * For production URLs, return the URL directly
      *
      * @param string $url The URL to process
      * @return string The processed URL
      */
-    private function bypassFlipUrlValidation(string $url): string {
+    private function bypassFlipUrlValidation(string $url): string
+    {
         // List of local/development domain patterns
         $localDomains = [
             'localhost',

@@ -2,7 +2,6 @@
 
 namespace FlipForBusiness\Checkout\Model\Order;
 
-
 use Magento\Sales\Api\CreditmemoManagementInterface;
 use Magento\Sales\Api\Data\CreditmemoInterfaceFactory;
 use Magento\Sales\Api\OrderRepositoryInterface;
@@ -69,5 +68,4 @@ class CreditMemoRepository
         // Save the credit memo
         $this->creditmemoManagement->refund($creditMemo);
     }
-
 }

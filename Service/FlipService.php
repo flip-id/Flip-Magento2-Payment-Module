@@ -13,8 +13,6 @@ use Magento\Framework\Serialize\Serializer\Json;
 /**
  * Class FlipService
  * Provides services for interacting with the Flip API, such as creating a bill.
- *
- * @package FlipForBusiness\Checkout\Service
  */
 class FlipService
 {
@@ -140,7 +138,7 @@ class FlipService
 
     /**
      * Verifies a transaction status from callback data against the Flip API.
-     * 
+     *
      * This method takes callback data from Flip and verifies its accuracy by
      * making a direct API call to Flip's servers to confirm the transaction status.
      *

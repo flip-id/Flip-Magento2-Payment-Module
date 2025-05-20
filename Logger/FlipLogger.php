@@ -14,15 +14,32 @@ use Monolog\Logger;
  *
  * Custom logger for the Flip Checkout module, extending Monolog's Logger class.
  * Provides methods for logging API requests, callbacks, debug messages, and errors.
- *
- * @package FlipForBusiness\Checkout\Logger
  */
 class FlipLogger extends Logger
 {
+    /**
+     * @var ModuleConfig
+     */
     private ModuleConfig $moduleConfig;
+
+    /**
+     * @var ApiRequestHandler
+     */
     private ApiRequestHandler $apiRequestLogHandler;
+
+    /**
+     * @var CallbackRequestHandler
+     */
     private CallbackRequestHandler $callbackLogHandler;
+
+    /**
+     * @var DebugHandler
+     */
     private DebugHandler $debugLogHandler;
+
+    /**
+     * @var ErrorHandler
+     */
     private ErrorHandler $errorHandler;
 
     /**

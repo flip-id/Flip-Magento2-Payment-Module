@@ -14,11 +14,10 @@ use Magento\Quote\Api\Data\CartInterface;
 
 /**
  * Class AbstractPayment
- * 
+ *
  * Provides a base payment method implementation for Flip payment methods.
  * This class extends the Magento Payment Adapter and implements core payment functionality.
  *
- * @package FlipForBusiness\Checkout\Model\Payment
  * @api
  */
 class AbstractPayment extends Adapter

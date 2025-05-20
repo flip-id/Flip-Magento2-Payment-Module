@@ -116,8 +116,7 @@ class OrderRepository
     {
         try {
             $savedOrder = $this->magentoOrderRepository->save($order);
-            $this->logger->logDebug("OrderRepository.class->saveOrder(): Order with ID {$order->getIncrementId()} has been saved successfully. Data: OrderStatus: {$order->getStatus()}, OrderState: {$order->getState()}, FlipLinkId: {$order->getExtOrderId()}"
-            );
+            $this->logger->logDebug("OrderRepository.class->saveOrder(): Order with ID {$order->getIncrementId()} has been saved successfully. Data: OrderStatus: {$order->getStatus()}, OrderState: {$order->getState()}, FlipLinkId: {$order->getExtOrderId()}");
             return $savedOrder;
         } catch (\Exception $e) {
             $this->logger->logErrorException("OrderRepository.class->saveOrder(): Unable to save the order.", $e);
@@ -133,7 +132,8 @@ class OrderRepository
      * @param string $value
      * @return void
      */
-    public function setAdditionalPaymentInfo(OrderInterface $order, string $key, string $value): void {
+    public function setAdditionalPaymentInfo(OrderInterface $order, string $key, string $value): void
+    {
         $payment = $order->getPayment();
         $payment->setAdditionalInformation($key, $value);
     }
@@ -173,7 +173,8 @@ class OrderRepository
      * @param bool $isCustomerNotified
      * @return void
      */
-    public function setStateAndStatus(OrderInterface $order, string $statusState, string $notes = '', bool $isCustomerNotified = false): void {
+    public function setStateAndStatus(OrderInterface $order, string $statusState, string $notes = '', bool $isCustomerNotified = false): void
+    {
         $order->setState($statusState)->setStatus($statusState);
         $order->addStatusToHistory($statusState, $notes, $isCustomerNotified);
     }
@@ -196,6 +197,4 @@ class OrderRepository
         }
         return  $isVirtual;
     }
-
-
 }

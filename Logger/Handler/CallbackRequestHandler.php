@@ -7,15 +7,19 @@ use Monolog\Handler\StreamHandler;
 
 /**
  * Class CallbackRequestHandler
- * Custom log handler for Flip payment module that logs callback request messages to the `flip_callback_requests.log` file.
+ * Custom log handler for Flip payment module that logs callback request messages.
  *
- * This class extends Magento's `BaseHandler` and sets up a custom file (`flip_callback_requests.log`) for logging
- * callback request messages at the INFO log level. This helps track incoming callback requests from external services.
- *
- * @package FlipForBusiness\Checkout\Logger\Handler
+ * This class extends Magento's `BaseHandler` and sets up a custom file for logging
+ * callback request messages at the INFO log level. This helps track incoming requests.
  */
 class CallbackRequestHandler extends StreamHandler
 {
+    /**
+     * CallbackRequestHandler constructor.
+     *
+     * Initializes a StreamHandler to write callback logs to flip_callback.log
+     * and sets the formatter to LineFormatter for proper log formatting.
+     */
     public function __construct()
     {
         parent::__construct(BP . '/var/log/flip_callback.log', \Monolog\Logger::INFO);

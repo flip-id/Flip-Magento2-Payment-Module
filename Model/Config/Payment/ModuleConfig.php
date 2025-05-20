@@ -17,8 +17,6 @@ use Magento\Store\Model\StoreManagerInterface;
  * Class ModuleConfig
  * Provides methods for retrieving configuration values related to the Flip payment module.
  * Handles settings such as live mode, business ID, API secret keys, and validation keys.
- *
- * @package FlipForBusiness\Checkout\Model\Config\Payment
  */
 class ModuleConfig
 {
@@ -42,8 +40,10 @@ class ModuleConfig
      */
     protected EncryptorInterface $encryptor;
 
+    /**
+     * @var FlipLogger Logger for module-related logs.
+     */
     public FlipLogger $logger;
-
 
     /**
      * ModuleConfig constructor.
@@ -96,7 +96,6 @@ class ModuleConfig
     {
         $isRedirect = $this->getDataConfig('is_redirect');
         return (int)$isRedirect === 1;
-
     }
 
     /**
@@ -119,7 +118,7 @@ class ModuleConfig
      */
     public function getApiSecretKey(): string
     {
-        $apiKey = $this->isLive() 
+        $apiKey = $this->isLive()
             ? $this->getDataConfig('live_api_secret_key')
             : $this->getDataConfig('test_api_secret_key');
             
@@ -201,7 +200,7 @@ class ModuleConfig
 
     /**
      * Get the callback URL for Flip API notifications.
-     * 
+     *
      * Returns the full URL that Flip should use to send payment status updates
      * to the store. Uses the current store's base URL with the payment callback endpoint.
      *
@@ -215,5 +214,4 @@ class ModuleConfig
             return '';
         }
     }
-
 }

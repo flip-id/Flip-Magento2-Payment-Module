@@ -10,15 +10,16 @@ use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Controller\Result\Redirect;
 use Magento\Framework\View\Result\Page;
 use Magento\Framework\Exception\NotFoundException;
+use Magento\Framework\Exception\NoSuchEntityException;
+use Magento\Framework\Exception\LocalizedException;
 use Magento\Sales\Model\Order;
 
 /**
  * Class Finish
- * 
+ *
  * Handles the finish step of the Flip Checkout payment process.
  * Displays a confirmation page with order details after the payment is processed successfully.
  *
- * @package FlipForBusiness\Checkout\Controller\Payment
  * @api
  */
 class Finish extends AbstractAction implements HttpGetActionInterface, CsrfAwareActionInterface
@@ -63,7 +64,7 @@ class Finish extends AbstractAction implements HttpGetActionInterface, CsrfAware
             // Fetch order by ID
             $order = $this->orderRepository->getOrderById($orderId);
             if (!$order || !$order->getId()) {
-                throw new \Exception("Order not found for ID: {$orderId}");
+                throw new NoSuchEntityException(__("Order not found for ID: %1", $orderId));
             }
 
             // Create result page
@@ -73,14 +74,20 @@ class Finish extends AbstractAction implements HttpGetActionInterface, CsrfAware
             // Find the layout block and set order data
             $finishBlock = $resultPage->getLayout()->getBlock('finish.page');
             if (!$finishBlock) {
-                throw new \Exception("Block 'finish.page' not found in layout.");
+                throw new LocalizedException(__("Block 'finish.page' not found in layout."));
             }
 
             $finishBlock->setData('order', $order);
             return $resultPage;
 
+        } catch (NoSuchEntityException $e) {
+            $this->logger->critical("Order not found: " . $e->getMessage());
+            return $this->redirectFactory->create()->setPath('checkout/cart');
+        } catch (LocalizedException $e) {
+            $this->logger->critical("Layout error: " . $e->getMessage());
+            return $this->redirectFactory->create()->setPath('checkout/cart');
         } catch (\Exception $e) {
-            $this->logger->critical("Error in Finish Controller: " . $e->getMessage());
+            $this->logger->critical("Unexpected error in Finish Controller: " . $e->getMessage());
             return $this->redirectFactory->create()->setPath('checkout/cart');
         }
     }

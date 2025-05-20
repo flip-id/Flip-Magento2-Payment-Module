@@ -17,7 +17,6 @@ use Magento\Framework\View\Helper\Js;
  * fieldset, including custom CSS class handling, header title, comments, and JavaScript functionality
  * to toggle the configuration sections.
  *
- * @package FlipForBusiness\Checkout\Block\Adminhtml\Config
  */
 class Fieldset extends \Magento\Config\Block\System\Config\Form\Fieldset
 {

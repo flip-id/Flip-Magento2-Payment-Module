@@ -2,6 +2,7 @@
 
 namespace FlipForBusiness\Checkout\Controller\Payment;
 
+use FlipForBusiness\Checkout\Service\FlipService;
 use Magento\Framework\App\Action\HttpPostActionInterface;
 use Magento\Framework\App\CsrfAwareActionInterface;
 use Magento\Framework\App\Request\InvalidRequestException;
@@ -9,26 +10,34 @@ use Magento\Framework\App\RequestInterface;
 use Magento\Framework\Controller\ResultInterface;
 use Magento\Framework\Controller\Result\Json;
 use Magento\Framework\Exception\LocalizedException;
+use Magento\Framework\Serialize\Serializer\Json as JsonSerializer;
 use Magento\Sales\Model\Order;
 
 /**
  * Class Callback
- * 
- * Handles Flip payment callback notifications.
- * This class processes incoming callback requests from the Flip for Business API.
- * It validates the request, decodes the callback data, and updates the associated order
- * based on the payment status.
  *
- * @package FlipForBusiness\Checkout\Controller\Payment
+ * Handles the callback from Flip payment gateway.
+ * This controller is responsible for processing payment status notifications.
+ *
  * @api
  */
 class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAwareActionInterface
 {
     /**
-     * Create a CSRF validation exception
+     * @var JsonSerializer
+     */
+    public JsonSerializer $jsonSerializer;
+
+    /**
+     * @var FlipService
+     */
+    public FlipService $flipService;
+
+    /**
+     * Create an exception for CSRF validation failure
      *
      * @param RequestInterface $request The incoming request
-     * @return InvalidRequestException|null The exception if validation failed, null otherwise
+     * @return InvalidRequestException|null Null as CSRF validation is bypassed
      */
     public function createCsrfValidationException(RequestInterface $request): ?InvalidRequestException
     {
@@ -58,10 +67,10 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
         try {
             $this->logger->logCallback(
                 "API Call Details:\n" .
-                "========================================= REQUEST From Flip =========================================\n" .
+                "========================================= REQUEST From Flip ===================================\n" .
                 "Request URL: ". $this->getRequest()->getOriginalPathInfo() . "\n" .
                 "Request Body: " . json_encode($this->getCallbackData(), JSON_PRETTY_PRINT) . "\n" .
-                "======================================================================================================="
+                "=========================================================================================="
             );
 
             // Validate request method
@@ -87,9 +96,9 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
 
             $this->logger->logCallback(
                 "API Response Details:\n" .
-                "======================================= RESPONSE from Magento ========================================\n" .
-                "API Response: " . print_r($response, true) . "\n" .
-                "======================================================================================================="
+                "======================================= RESPONSE from Magento =============================\n" .
+                "API Response: " . json_encode($response, JSON_PRETTY_PRINT) . "\n" .
+                "=========================================================================================="
             );
 
             return $resultJson->setData($response);
@@ -102,10 +111,10 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
             $this->logger->logErrorException('Payment Callback Error: ' . $e->getMessage(), $e);
             $this->logger->logCallback(
                 "API Response Details:\n" .
-                "======================================= RESPONSE from Magento ========================================\n" .
-                "API Response: " . print_r($errorResponse, true) . "\n" .
-                "Error: " . print_r($e->getMessage(), true) . "\n" .
-                "======================================================================================================="
+                "======================================= RESPONSE from Magento =============================\n" .
+                "API Response: " . json_encode($errorResponse, JSON_PRETTY_PRINT) . "\n" .
+                "Error: " . $e->getMessage() . "\n" .
+                "=========================================================================================="
             );
             return $resultJson->setData($errorResponse);
         } catch (\Exception $e) {
@@ -117,10 +126,10 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
             $this->logger->logErrorException('Callback->execute: ' . $e->getMessage(), $e);
             $this->logger->logCallback(
                 "API Response Details:\n" .
-                "======================================= RESPONSE from Magento ========================================\n" .
-                "API Response: " . print_r($errorResponse, true) . "\n" .
-                "Error: " . print_r($e->getMessage(), true) . "\n" .
-                "======================================================================================================="
+                "======================================= RESPONSE from Magento =============================\n" .
+                "API Response: " . json_encode($errorResponse, JSON_PRETTY_PRINT) . "\n" .
+                "Error: " . $e->getMessage() . "\n" .
+                "=========================================================================================="
             );
             return $resultJson->setData($errorResponse);
         }
@@ -160,7 +169,8 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
     /**
      * Validate the callback data for required fields
      *
-     * @param array<string, mixed> $data The callback data to validate
+     * @param array $data The callback data to validate
+     * @return void
      * @throws LocalizedException If any required fields are missing
      */
     private function validateCallbackData(array $data): void
@@ -176,7 +186,8 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
     /**
      * Process the payment and update the order
      *
-     * @param array<string, mixed> $data The callback data
+     * @param array $data The callback data
+     * @return void
      * @throws LocalizedException If the payment processing fails
      */
     private function processPayment(array $data): void
@@ -187,18 +198,28 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
                 // Verify transaction status with Flip API for additional security
                 $isVerified = $this->flipService->verifyTransactionStatus($data);
                 if (!$isVerified) {
-                    $this->logger->logErrorException("Transaction verification failed for bill_link_id: {$data['bill_link_id']}", 
-                        new \Exception("Callback data doesn't match API response"));
-                    throw new LocalizedException(__('Transaction verification failed. Please contact support.'));
+                    $this->logger->logErrorException(
+                        "Transaction verification failed for bill_link_id: {$data['bill_link_id']}",
+                        new \Exception("Callback data doesn't match API response")
+                    );
+                    throw new LocalizedException(__(
+                        'Transaction verification failed. Please contact support.'
+                    ));
                 }
 
                 if ($data['status'] === 'SUCCESSFUL') {
-                    $paymentMethod = strtoupper($data['sender_bank_type']) . '-' . strtoupper($data['sender_bank']);
+                    $paymentMethod = strtoupper($data['sender_bank_type']) . '-' .
+                        strtoupper($data['sender_bank']);
+                    
+                    $successMessage = "<strong style='color: green;'>Payment Successfully!</strong><br>" .
+                        "- Payment Transaction Id: {$data['id']}<br>" .
+                        "- Payment Status: {$data['status']}<br>" .
+                        "- Payment Method: {$paymentMethod}";
+                    
                     $this->orderRepository->setStateAndStatus(
                         $order,
                         Order::STATE_PROCESSING,
-                        "<strong style='color: green;'>Payment Successfully!</strong><br>" .
-                        "- Payment Transaction Id: {$data['id']}<br>- Payment Status: {$data['status']}<br>- Payment Method: {$paymentMethod}",
+                        $successMessage,
                         true
                     );
                     $this->orderRepository->setAdditionalPaymentInfo($order, 'flip_trx_id', $data['id']);
@@ -207,11 +228,15 @@ class Callback extends AbstractAction implements HttpPostActionInterface, CsrfAw
                     $this->invoiceRepository->createInvoice($order, $data);
                 } elseif (in_array($data['status'], ['CANCELLED', 'FAILED'])) {
                     $statusTitle = $data['status'] === 'CANCELLED' ? 'Expired' : 'Failed';
+                    
+                    $failureMessage = "<strong style='color: red;'>Flip Bill {$statusTitle}!</strong><br>" .
+                        "- Payment Transaction Id: {$data['id']}<br>" .
+                        "- Payment Status: {$data['status']}";
+                    
                     $this->orderRepository->setStateAndStatus(
                         $order,
                         Order::STATE_CANCELED,
-                        "<strong style='color: red;'>Flip Bill {$statusTitle}!</strong><br>" .
-                        "- Payment Transaction Id: {$data['id']}<br>- Payment Status: {$data['status']}",
+                        $failureMessage,
                         true
                     );
                     $this->orderRepository->setAdditionalPaymentInfo($order, 'flip_trx_id', $data['id']);

@@ -13,8 +13,6 @@ use Magento\Framework\HTTP\Client\Curl;
  *
  * This class is responsible for sending HTTP requests to an API using the provided `Curl` client.
  * It logs detailed information about the request and response for debugging purposes using the `FlipLogger`.
- *
- * @package FlipForBusiness\Checkout\Gateway\Http
  */
 class Client implements ClientInterface
 {
